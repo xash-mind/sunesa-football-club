@@ -1,24 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SunesaSite } from "@/components/sunesa/SunesaSite";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Sunesa Football Club — Train With Purpose. Play With Pride." },
+      {
+        name: "description",
+        content:
+          "Official youth football academy under Arka Vega Sports Academy. Veteran-led coaching, structured development from U8 to U18.",
+      },
+      { property: "og:title", content: "Sunesa Football Club — Youth Academy" },
+      {
+        property: "og:description",
+        content: "Veteran-led youth football development. Book a trial session today.",
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  return <SunesaSite />;
 }
