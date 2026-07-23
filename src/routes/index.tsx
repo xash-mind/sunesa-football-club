@@ -5,16 +5,16 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Sunesa Football Club — Train With Purpose. Play With Pride." },
+      { title: "Sunesa Football Club — Firing The Spirit of Football" },
       {
         name: "description",
         content:
-          "Official youth football academy under Arka Vega Sports Academy. Veteran-led coaching, structured development from U8 to U18.",
+          "Registered with Bangalore District Football Association since 2012.",
       },
-      { property: "og:title", content: "Sunesa Football Club — Youth Academy" },
+      { property: "og:title", content: "Sunesa Football Club — Firing The Spirit of Football" },
       {
         property: "og:description",
-        content: "Veteran-led youth football development. Book a trial session today.",
+        content: "Registered with Bangalore District Football Association since 2012.",
       },
     ],
   }),

@@ -77,20 +77,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sunesa Football Club — Youth Academy by Arka Vega" },
-      { name: "description", content: "Sunesa FC is the official youth football academy of Arka Vega Sports Academy — veteran-led coaching, structured development, and pathways for aspiring footballers." },
+      { title: "Sunesa Football Club — Firing The Spirit of Football" },
+      { name: "description", content: "Registered with Bangalore District Football Association since 2012." },
       { name: "author", content: "Arka Vega Sports Academy" },
-      { property: "og:title", content: "Sunesa Football Club — Youth Academy by Arka Vega" },
-      { property: "og:description", content: "Train with purpose. Play with pride. Veteran-led youth football development at Sunesa FC." },
+      { property: "og:title", content: "Sunesa Football Club — Firing The Spirit of Football" },
+      { property: "og:description", content: "Registered with Bangalore District Football Association since 2012." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Sunesa Football Club — Firing The Spirit of Football" },
+      { name: "twitter:description", content: "Registered with Bangalore District Football Association since 2012." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/5FtpDIKaL9hqCJ0GNDXyRlE0rdk2/social-images/social-1784790844226-1000004378.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/5FtpDIKaL9hqCJ0GNDXyRlE0rdk2/social-images/social-1784790844226-1000004378.webp" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
