@@ -23,7 +23,6 @@ import {
   Check,
 } from "lucide-react";
 
-import sunesaLogoAsset from "@/assets/sunesa-logo.asset.json";
 import heroImg from "@/assets/hero-training.jpg";
 import aboutImg from "@/assets/about-action.jpg";
 import academyImg from "@/assets/academy-coach.jpg";
@@ -36,7 +35,7 @@ import news1 from "@/assets/news-1.jpg";
 import news2 from "@/assets/news-2.jpg";
 import news3 from "@/assets/news-3.jpg";
 
-const LOGO = sunesaLogoAsset.url;
+const LOGO = "/__l5e/assets-v1/3bf6664e-8874-4cff-90af-cfa55ea1df38/sunesa-logo.jpg";
 
 const NAV = [
   { label: "Home", href: "#home" },
