@@ -53,7 +53,7 @@ const NAV = [
 function TrustBadge({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--gold)_35%,transparent)] bg-[color-mix(in_oklab,var(--surface)_70%,transparent)] px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-gold backdrop-blur-md ${className}`}
+      className={`inline-flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--gold)_35%,transparent)] bg-[color-mix(in_oklab,var(--surface)_70%,transparent)] px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-brand-primary backdrop-blur-md ${className}`}
     >
       <ShieldCheck className="h-3.5 w-3.5" />
       <span>Official Academy · Arka Vega Sports Academy</span>
@@ -75,8 +75,8 @@ function SectionHeading({
   return (
     <div className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""}`}>
       {eyebrow && (
-        <div className="mb-4 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.32em] text-gold">
-          <span className="h-px w-8 bg-gold" />
+        <div className="mb-4 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.32em] text-brand-primary">
+          <span className="h-px w-8 bg-brand-primary" />
           {eyebrow}
         </div>
       )}
@@ -140,7 +140,7 @@ function Navbar() {
               <li key={n.href}>
                 <a
                   href={n.href}
-                  className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+                  className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-brand-primary"
                 >
                   {n.label}
                 </a>
@@ -152,7 +152,7 @@ function Navbar() {
         <div className="flex items-center justify-end gap-2">
           <a
             href="#enroll"
-            className="hidden rounded-md border border-gold px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-gold transition-all hover:bg-gold hover:text-primary-foreground sm:inline-flex"
+            className="hidden rounded-md border border-brand-primary px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-brand-primary transition-all hover:bg-brand-primary hover:text-primary-foreground sm:inline-flex"
           >
             Enroll Now
           </a>
@@ -167,14 +167,14 @@ function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-border/60 bg-charcoal/95 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-border/60 bg-brand-background/95 backdrop-blur-xl lg:hidden">
           <ul className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
             {NAV.map((n) => (
               <li key={n.href}>
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-md px-3 py-2.5 text-sm text-muted-foreground hover:bg-secondary hover:text-gold"
+                  className="block rounded-md px-3 py-2.5 text-sm text-muted-foreground hover:bg-secondary hover:text-brand-primary"
                 >
                   {n.label}
                 </a>
@@ -184,7 +184,7 @@ function Navbar() {
               <a
                 href="#enroll"
                 onClick={() => setOpen(false)}
-                className="block rounded-md border border-gold px-3 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.18em] text-gold"
+                className="block rounded-md border border-brand-primary px-3 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.18em] text-brand-primary"
               >
                 Enroll Now
               </a>
@@ -219,7 +219,7 @@ function Hero() {
           <img
             src={LOGO}
             alt="Sunesa Football Club official emblem"
-            className="h-28 w-28 rounded-full ring-2 ring-gold/60 shadow-gold sm:h-36 sm:w-36"
+            className="h-28 w-28 rounded-full ring-2 ring-brand-primary/60 shadow-gold sm:h-36 sm:w-36"
           />
         </div>
 
@@ -243,7 +243,7 @@ function Hero() {
           </a>
           <a
             href="#programs"
-            className="inline-flex w-full items-center justify-center rounded-md border border-gold/60 px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/10 sm:w-auto"
+            className="inline-flex w-full items-center justify-center rounded-md border border-brand-primary/60 px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-brand-primary transition-colors hover:bg-brand-primary/10 sm:w-auto"
           >
             Explore Programs
           </a>
@@ -256,7 +256,7 @@ function Hero() {
             { k: "365", v: "Days of Training" },
           ].map((s) => (
             <div key={s.v}>
-              <div className="font-display text-2xl text-gold sm:text-3xl">{s.k}</div>
+              <div className="font-display text-2xl text-brand-primary sm:text-3xl">{s.k}</div>
               <div className="mt-1 text-[10px] uppercase tracking-[0.24em] text-muted-foreground sm:text-xs">
                 {s.v}
               </div>
@@ -297,7 +297,7 @@ function AboutSection() {
               <TrustBadge />
             </div>
           </div>
-          <div className="absolute -bottom-6 -right-4 hidden rounded-xl border border-gold/40 bg-surface p-5 shadow-gold sm:block">
+          <div className="absolute -bottom-6 -right-4 hidden rounded-xl border border-brand-primary/40 bg-brand-surface p-5 shadow-gold sm:block">
             <div className="font-display text-3xl text-gradient-gold">EST.</div>
             <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
               Veteran-led trust
@@ -314,7 +314,7 @@ function AboutSection() {
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <div className="glass-card rounded-xl p-5">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
                 Mission
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -323,7 +323,7 @@ function AboutSection() {
               </p>
             </div>
             <div className="glass-card rounded-xl p-5">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
                 Vision
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -334,7 +334,7 @@ function AboutSection() {
           </div>
 
           <div className="mt-8">
-            <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
+            <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
               Core Values
             </div>
             <ul className="flex flex-wrap gap-2">
@@ -396,7 +396,7 @@ function AcademySection() {
             <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {pillars.map((p) => (
                 <li key={p} className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-gold/15 text-gold">
+                  <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-primary/15 text-brand-primary">
                     <Check className="h-3 w-3" />
                   </span>
                   {p}
@@ -422,10 +422,10 @@ function AcademySection() {
           {cards.map((c) => (
             <div
               key={c.title}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-surface p-6 transition-all hover:border-gold/50 hover:shadow-gold"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-brand-surface p-6 transition-all hover:border-brand-primary/50 hover:shadow-gold"
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold ring-1 ring-gold/25">
+              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary/10 text-brand-primary ring-1 ring-brand-primary/25">
                 <c.icon className="h-5 w-5" />
               </div>
               <h3 className="font-display text-xl">{c.title}</h3>
@@ -493,7 +493,7 @@ const PROGRAMS = [
 
 function ProgramsSection() {
   return (
-    <section id="programs" className="relative bg-surface/40 py-24 sm:py-32">
+    <section id="programs" className="relative bg-brand-surface/40 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Programs"
@@ -504,14 +504,14 @@ function ProgramsSection() {
           {PROGRAMS.map((p) => (
             <article
               key={p.group}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-charcoal p-6 transition-all hover:-translate-y-1 hover:border-gold/50 hover:shadow-gold"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-brand-background p-6 transition-all hover:-translate-y-1 hover:border-brand-primary/50 hover:shadow-gold"
             >
-              <div className="absolute right-0 top-0 h-24 w-24 -translate-y-8 translate-x-8 rounded-full bg-blood/25 blur-2xl transition-all group-hover:bg-gold/30" />
+              <div className="absolute right-0 top-0 h-24 w-24 -translate-y-8 translate-x-8 rounded-full bg-brand-secondary/25 blur-2xl transition-all group-hover:bg-brand-primary/30" />
               <div className="flex items-start justify-between">
                 <div className="font-display text-4xl text-gradient-gold sm:text-5xl">
                   {p.group}
                 </div>
-                <span className="rounded-full border border-blood/40 bg-blood/10 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-ember">
+                <span className="rounded-full border border-blood/40 bg-brand-secondary/10 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-brand-secondary-soft">
                   Enrolling
                 </span>
               </div>
@@ -524,7 +524,7 @@ function ProgramsSection() {
               </dl>
               <a
                 href="#enroll"
-                className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold hover:text-gold-soft"
+                className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary hover:text-brand-primary-soft"
               >
                 Enroll {p.group} <ArrowRight className="h-3.5 w-3.5" />
               </a>
@@ -550,7 +550,7 @@ function Row({
       <dt className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{label}</dt>
       <dd
         className={`text-right text-sm ${
-          highlight ? "font-semibold text-gold" : "text-foreground"
+          highlight ? "font-semibold text-brand-primary" : "text-foreground"
         }`}
       >
         {value}
@@ -586,21 +586,21 @@ function ScheduleSection() {
         <div className="mt-14 hidden overflow-hidden rounded-2xl border border-border md:block">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-surface">
-                <th className="px-5 py-4 text-left text-[10px] uppercase tracking-[0.22em] text-gold">
+              <tr className="bg-brand-surface">
+                <th className="px-5 py-4 text-left text-[10px] uppercase tracking-[0.22em] text-brand-primary">
                   Day
                 </th>
-                <th className="px-5 py-4 text-left text-[10px] uppercase tracking-[0.22em] text-gold">
+                <th className="px-5 py-4 text-left text-[10px] uppercase tracking-[0.22em] text-brand-primary">
                   Morning Batch
                 </th>
-                <th className="px-5 py-4 text-left text-[10px] uppercase tracking-[0.22em] text-gold">
+                <th className="px-5 py-4 text-left text-[10px] uppercase tracking-[0.22em] text-brand-primary">
                   Evening Batch
                 </th>
               </tr>
             </thead>
             <tbody>
               {DAYS.map((d) => (
-                <tr key={d} className="border-t border-border/60 hover:bg-surface/60">
+                <tr key={d} className="border-t border-border/60 hover:bg-brand-surface/60">
                   <td className="px-5 py-4 font-display text-lg text-foreground">{d}</td>
                   <td className="px-5 py-4 text-muted-foreground">
                     {SCHEDULE[d].morning ?? "—"}
@@ -617,8 +617,8 @@ function ScheduleSection() {
         {/* Mobile cards */}
         <div className="mt-10 grid gap-3 md:hidden">
           {DAYS.map((d) => (
-            <div key={d} className="rounded-xl border border-border bg-surface p-4">
-              <div className="mb-2 font-display text-lg text-gold">{d}</div>
+            <div key={d} className="rounded-xl border border-border bg-brand-surface p-4">
+              <div className="mb-2 font-display text-lg text-brand-primary">{d}</div>
               <div className="space-y-1.5 text-sm">
                 <div>
                   <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -653,7 +653,7 @@ function FacilitiesSection() {
     { icon: Droplets, title: "Safety & Hydration", desc: "First-aid readiness, hydration stations and trained staff on site." },
   ];
   return (
-    <section id="facilities" className="relative bg-surface/40 py-24 sm:py-32">
+    <section id="facilities" className="relative bg-brand-surface/40 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Facilities"
@@ -663,9 +663,9 @@ function FacilitiesSection() {
           {items.map((f) => (
             <div
               key={f.title}
-              className="group rounded-2xl border border-border bg-charcoal p-6 transition-all hover:border-gold/50"
+              className="group rounded-2xl border border-border bg-brand-background p-6 transition-all hover:border-brand-primary/50"
             >
-              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-gold/10 text-gold ring-1 ring-gold/25 transition-colors group-hover:bg-gold group-hover:text-primary-foreground">
+              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary ring-1 ring-brand-primary/25 transition-colors group-hover:bg-brand-primary group-hover:text-primary-foreground">
                 <f.icon className="h-5 w-5" />
               </div>
               <h3 className="font-display text-lg">{f.title}</h3>
@@ -708,8 +708,8 @@ function GallerySection() {
                 onClick={() => setActive(c)}
                 className={`rounded-full border px-3.5 py-1.5 text-xs uppercase tracking-[0.2em] transition-colors ${
                   active === c
-                    ? "border-gold bg-gold text-primary-foreground"
-                    : "border-border text-muted-foreground hover:border-gold/60 hover:text-gold"
+                    ? "border-brand-primary bg-brand-primary text-primary-foreground"
+                    : "border-border text-muted-foreground hover:border-brand-primary/60 hover:text-brand-primary"
                 }`}
               >
                 {c}
@@ -731,7 +731,7 @@ function GallerySection() {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
-              <figcaption className="absolute bottom-3 left-3 rounded-full bg-charcoal/70 px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-gold backdrop-blur">
+              <figcaption className="absolute bottom-3 left-3 rounded-full bg-brand-background/70 px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-brand-primary backdrop-blur">
                 {g.cat}
               </figcaption>
             </figure>
@@ -773,7 +773,7 @@ const NEWS = [
 
 function NewsSection() {
   return (
-    <section id="news" className="relative bg-surface/40 py-24 sm:py-32">
+    <section id="news" className="relative bg-brand-surface/40 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="News & Updates"
@@ -784,7 +784,7 @@ function NewsSection() {
           {NEWS.map((n) => (
             <article
               key={n.title}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-charcoal transition-all hover:-translate-y-1 hover:border-gold/50"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-brand-background transition-all hover:-translate-y-1 hover:border-brand-primary/50"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <img
@@ -793,7 +793,7 @@ function NewsSection() {
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <span className="absolute left-4 top-4 rounded-full bg-blood/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground">
+                <span className="absolute left-4 top-4 rounded-full bg-brand-secondary/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground">
                   {n.cat}
                 </span>
               </div>
@@ -807,7 +807,7 @@ function NewsSection() {
                 <p className="mt-3 line-clamp-2 text-sm text-muted-foreground">{n.excerpt}</p>
                 <a
                   href="#"
-                  className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold hover:text-gold-soft"
+                  className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary hover:text-brand-primary-soft"
                 >
                   Read more <ArrowRight className="h-3.5 w-3.5" />
                 </a>
@@ -842,15 +842,15 @@ function EnrollSection() {
             />
             <div className="mt-8 space-y-4 text-sm text-muted-foreground">
               <p className="flex items-start gap-3">
-                <ShieldCheck className="mt-0.5 h-4 w-4 text-gold" />
+                <ShieldCheck className="mt-0.5 h-4 w-4 text-brand-primary" />
                 Trial sessions are complimentary for first-time players.
               </p>
               <p className="flex items-start gap-3">
-                <Users className="mt-0.5 h-4 w-4 text-gold" />
+                <Users className="mt-0.5 h-4 w-4 text-brand-primary" />
                 Batch sizes are capped to keep individual attention high.
               </p>
               <p className="flex items-start gap-3">
-                <Trophy className="mt-0.5 h-4 w-4 text-gold" />
+                <Trophy className="mt-0.5 h-4 w-4 text-brand-primary" />
                 Selected players progress into competitive squads.
               </p>
             </div>
@@ -860,7 +860,7 @@ function EnrollSection() {
             onSubmit={onSubmit}
             className="glass-card relative overflow-hidden rounded-2xl p-6 sm:p-8"
           >
-            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gold/20 blur-3xl" />
+            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-brand-primary/20 blur-3xl" />
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Player name" name="player" placeholder="Full name" />
               <Field label="Date of birth" name="dob" type="date" />
@@ -890,7 +890,7 @@ function EnrollSection() {
                 <textarea
                   name="notes"
                   rows={3}
-                  className="w-full rounded-md border border-border bg-charcoal/60 px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold"
+                  className="w-full rounded-md border border-border bg-brand-background/60 px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-brand-primary"
                   placeholder="Anything we should know?"
                 />
               </div>
@@ -902,7 +902,7 @@ function EnrollSection() {
                   {["Yes", "No"].map((opt) => (
                     <label
                       key={opt}
-                      className="flex-1 cursor-pointer rounded-md border border-border bg-charcoal/60 px-4 py-2.5 text-center text-sm transition-colors has-[input:checked]:border-gold has-[input:checked]:bg-gold/10 has-[input:checked]:text-gold"
+                      className="flex-1 cursor-pointer rounded-md border border-border bg-brand-background/60 px-4 py-2.5 text-center text-sm transition-colors has-[input:checked]:border-brand-primary has-[input:checked]:bg-brand-primary/10 has-[input:checked]:text-brand-primary"
                     >
                       <input type="radio" name="trial" value={opt} className="sr-only" defaultChecked={opt === "Yes"} />
                       {opt}
@@ -952,7 +952,7 @@ function Field({
         name={name}
         type={type}
         placeholder={placeholder}
-        className="w-full rounded-md border border-border bg-charcoal/60 px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold"
+        className="w-full rounded-md border border-border bg-brand-background/60 px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-brand-primary"
       />
     </div>
   );
@@ -978,7 +978,7 @@ function SelectField({
       <select
         id={name}
         name={name}
-        className="w-full rounded-md border border-border bg-charcoal/60 px-3.5 py-2.5 text-sm text-foreground outline-none focus:border-gold"
+        className="w-full rounded-md border border-border bg-brand-background/60 px-3.5 py-2.5 text-sm text-foreground outline-none focus:border-brand-primary"
       >
         {options.map((o) => (
           <option key={o} value={o}>
@@ -1001,7 +1001,7 @@ function ContactSection() {
     { icon: Clock, label: "Training hours", value: "Mon–Sat · 6–8 AM & 4:30–8 PM" },
   ];
   return (
-    <section id="contact" className="relative bg-surface/40 py-24 sm:py-32">
+    <section id="contact" className="relative bg-brand-surface/40 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Contact"
@@ -1012,9 +1012,9 @@ function ContactSection() {
             {items.map((it) => (
               <li
                 key={it.label}
-                className="flex items-start gap-4 rounded-xl border border-border bg-charcoal p-5"
+                className="flex items-start gap-4 rounded-xl border border-border bg-brand-background p-5"
               >
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-gold/10 text-gold ring-1 ring-gold/25">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-primary/10 text-brand-primary ring-1 ring-brand-primary/25">
                   <it.icon className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
@@ -1026,10 +1026,10 @@ function ContactSection() {
               </li>
             ))}
           </ul>
-          <div className="relative overflow-hidden rounded-2xl border border-border bg-charcoal">
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-brand-background">
             <div className="grid h-full min-h-[360px] place-items-center bg-[radial-gradient(ellipse_at_center,var(--surface)_0%,var(--charcoal)_70%)]">
               <div className="text-center">
-                <MapPin className="mx-auto h-8 w-8 text-gold" />
+                <MapPin className="mx-auto h-8 w-8 text-brand-primary" />
                 <div className="mt-3 font-display text-xl text-foreground">
                   Embedded map area
                 </div>
@@ -1049,12 +1049,12 @@ function ContactSection() {
 
 function Footer() {
   return (
-    <footer className="relative border-t border-border bg-charcoal">
+    <footer className="relative border-t border-border bg-brand-background">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 md:grid-cols-4">
           <div>
             <div className="flex items-center gap-3">
-              <img src={LOGO} alt="Sunesa FC" className="h-12 w-12 rounded-full ring-1 ring-gold/50" />
+              <img src={LOGO} alt="Sunesa FC" className="h-12 w-12 rounded-full ring-1 ring-brand-primary/50" />
               <div>
                 <div className="font-display tracking-wider">SUNESA FC</div>
                 <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -1068,13 +1068,13 @@ function Footer() {
             </p>
           </div>
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
               Quick Links
             </div>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
               {NAV.slice(0, 6).map((n) => (
                 <li key={n.href}>
-                  <a href={n.href} className="transition-colors hover:text-gold">
+                  <a href={n.href} className="transition-colors hover:text-brand-primary">
                     {n.label}
                   </a>
                 </li>
@@ -1082,7 +1082,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
               Contact
             </div>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
@@ -1093,7 +1093,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
               Follow
             </div>
             <div className="mt-4 flex gap-2">
@@ -1102,7 +1102,7 @@ function Footer() {
                   key={i}
                   href="#"
                   aria-label="Social"
-                  className="grid h-10 w-10 place-items-center rounded-lg border border-border bg-surface text-muted-foreground transition-colors hover:border-gold hover:text-gold"
+                  className="grid h-10 w-10 place-items-center rounded-lg border border-border bg-brand-surface text-muted-foreground transition-colors hover:border-brand-primary hover:text-brand-primary"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -1115,7 +1115,7 @@ function Footer() {
 
         <div className="mt-6 flex flex-col items-start justify-between gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center">
           <div>© {new Date().getFullYear()} Sunesa Football Club. All rights reserved.</div>
-          <div className="uppercase tracking-[0.22em] text-gold/80">
+          <div className="uppercase tracking-[0.22em] text-brand-primary/80">
             Powered by Arka Vega Sports Academy
           </div>
         </div>
@@ -1128,7 +1128,7 @@ function Footer() {
 
 export function SunesaSite() {
   return (
-    <div className="scroll-smooth bg-charcoal text-foreground antialiased">
+    <div className="scroll-smooth bg-brand-background text-foreground antialiased">
       <Navbar />
       <main>
         <Hero />

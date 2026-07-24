@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { SunesaSite } from "@/components/sunesa/SunesaSite";
 
@@ -5,20 +6,20 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Sunesa Football Club — Firing The Spirit of Football" },
+      { title: siteConfig.seo.title },
       {
         name: "description",
-        content:
-          "Registered with Bangalore District Football Association since 2012.",
+        content: siteConfig.seo.description,
       },
-      { property: "og:title", content: "Sunesa Football Club — Firing The Spirit of Football" },
+      { property: "og:title", content: siteConfig.seo.title },
       {
         property: "og:description",
-        content: "Registered with Bangalore District Football Association since 2012.",
+        content: siteConfig.seo.description,
       },
     ],
   }),
 });
+
 
 function Index() {
   return <SunesaSite />;
