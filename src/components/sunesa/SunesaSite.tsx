@@ -277,12 +277,19 @@ function Hero() {
     <section id="home" className="relative isolate min-h-screen overflow-hidden">
 
       <img
-        src={aboutImg}
-        alt="Sunesa Football Club players during training"
-        className="absolute inset-0 h-full w-full object-cover object-center"
-        width={1920}
-        height={1080}
-      />
+  src={aboutImg}
+  alt="Sunesa Football Club players during training"
+  className="
+    absolute inset-0
+    h-full w-full
+    object-cover
+    object-[28%_center]
+    sm:object-center
+    scale-105
+  "
+  width={1920}
+  height={1080}
+/>
 
       {/* Cinematic overlays */}
 
