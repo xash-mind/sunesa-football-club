@@ -283,7 +283,7 @@ function Hero() {
     absolute inset-0
     h-full w-full
     object-cover
-    object-[80%_center]
+    object-[87%_center]
     sm:object-center
     scale-105
   "
