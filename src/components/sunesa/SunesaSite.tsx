@@ -393,58 +393,68 @@ function AboutSection() {
   ];
 
   return (
-    <section id="about" className="relative pt-24 pb-14 sm:pt-32 sm:pb-16">
+  <section id="about" className="relative pt-24 pb-14 sm:pt-32 sm:pb-16">
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
-        {/* ================= TOP ================= */}
+      {/* ================= TOP ================= */}
 
-        <div className="grid items-center gap-10 lg:grid-cols-[1.8fr_0.7fr]">
+      <div className="grid items-center gap-10 lg:grid-cols-[1.8fr_0.7fr]">
 
-          {/* Hero Image */}
+        {/* Hero Image */}
 
-          <div className="relative overflow-hidden rounded-3xl border border-brand-primary/20 shadow-gold">
+        <div className="relative overflow-hidden rounded-3xl border border-brand-primary/20 shadow-gold">
 
-            <img
-              src={heroImg}
-              alt="About Sunesa Football Club"
-              className="h-[460px] w-full object-cover"
-              loading="lazy"
-            />
+          <img
+            src={heroImg}
+            alt="About Sunesa Football Club"
+            className="h-[280px] sm:h-[360px] lg:h-[460px] w-full object-cover object-center"
+            loading="lazy"
+          />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-brand-background/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-brand-background/10 to-transparent" />
 
-            <div className="absolute bottom-8 left-8">
-              <TrustBadge />
-            </div>
+          {/* Trust Badge */}
 
-            <div className="absolute bottom-8 right-8 rounded-2xl border border-brand-primary/40 bg-brand-surface/80 p-6 backdrop-blur-md shadow-gold">
+          <div className="absolute bottom-6 left-6">
+            <TrustBadge />
+          </div>
 
-              <div className="font-display text-4xl text-gradient-gold">
+          {/* EST Card */}
+
+          <div className="absolute top-6 right-6">
+
+            <div className="rounded-xl border border-brand-primary/30 bg-brand-background/20 px-5 py-4 backdrop-blur-xl">
+
+              <div className="font-display text-3xl text-gradient-gold">
                 EST. 2012
               </div>
 
-              <div className="mt-2 text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                BDFA 'C' Division Club
+              <div className="mt-1 text-[10px] uppercase tracking-[0.24em] text-white/75">
+                BDFA C Division Club
               </div>
 
             </div>
-
-          </div>
-
-          {/* Heading */}
-
-          <div>
-
-            <SectionHeading
-              eyebrow="About Sunesa FC"
-              title={"Building Bangalore's |Next Generation| of Footballers"}
-              subtitle="Sunesa Football Club was founded in 2012 with one mission—to identify raw talent from the grassroots and shape it into disciplined, match-ready players."
-            />
 
           </div>
 
         </div>
+
+        {/* Header */}
+
+        <div>
+
+          <SectionHeading
+            eyebrow="About Sunesa FC"
+            title={"Building Bangalore's |Next Generation| of Footballers"}
+            subtitle="Sunesa Football Club was founded in 2012 with one mission — to identify raw talent from the grassroots and shape it into disciplined, match-ready players. From local grounds to BDFA 'C' Division, we provide structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore."
+          />
+
+        </div>
+
+      </div>
+
+      
 
         {/* ================= CONTENT ================= */}
 
