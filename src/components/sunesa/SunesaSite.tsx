@@ -422,23 +422,19 @@ function AboutSection() {
 
           {/* EST Card */}
 
-          <div className="absolute top-6 right-6">
+         <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
 
-            <div className="rounded-xl border border-brand-primary/30 bg-brand-background/20 px-5 py-4 backdrop-blur-xl">
+  <div className="rounded-lg border border-brand-primary/20 bg-brand-background/10 px-3 py-2 sm:px-4 sm:py-3 backdrop-blur-2xl">
 
-              <div className="font-display text-3xl text-gradient-gold">
-                EST. 2012
-              </div>
+    <div className="brand-font text-lg tracking-wider text-gradient-gold sm:text-2xl">
+      EST. 2012
+    </div>
 
-              <div className="mt-1 text-[10px] uppercase tracking-[0.24em] text-white/75">
-                BDFA C Division Club
-              </div>
+  </div>
 
-            </div>
+</div>
 
-          </div>
-
-        </div>
+</div>
 
         {/* Header */}
 
