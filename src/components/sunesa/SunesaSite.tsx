@@ -276,36 +276,24 @@ function Hero() {
     <section id="home" className="relative isolate min-h-screen overflow-hidden">
 
       <img
-        src={heroImg}
+        src={aboutImg}
         alt="Sunesa Football Club players during training"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-center"
         width={1920}
         height={1080}
       />
 
-      {/* Softer cinematic overlays */}
+      {/* Cinematic overlays */}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-background/65 via-brand-background/40 to-brand-background/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-background/60 via-brand-background/35 to-brand-background/82" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_28%,var(--background)_88%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,var(--background)_88%)]" />
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 pt-32 pb-16 text-center sm:px-6">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 pt-20 pb-16 text-center sm:px-6">
 
-        <TrustBadge className="mb-8" />
+        {/* Trust Badge */}
 
-        {/* Logo */}
-
-        <div className="relative mb-10">
-
-          <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-primary/30 via-brand-secondary/10 to-transparent blur-3xl" />
-
-          <img
-            src={Logo}
-            alt="Sunesa Football Club Logo"
-            className="h-32 w-32 rounded-full ring-2 ring-brand-primary/60 shadow-gold sm:h-40 sm:w-40"
-          />
-
-        </div>
+        <TrustBadge className="mb-20" />
 
         {/* Hero Text */}
 
@@ -362,15 +350,15 @@ function Hero() {
           {[
             {
               k: "150+",
-              v: "Matches Played",
+              v: "Players",
             },
             {
-              k: "20+",
-              v: "Tournaments",
+              k: "14+",
+              v: "Years",
             },
             {
-              k: "2012",
-              v: "Established",
+              k: "BDFA",
+              v: "League Club",
             },
           ].map((item) => (
             <div key={item.v} className="text-center">
@@ -418,7 +406,7 @@ function AboutSection() {
           <div className="relative overflow-hidden rounded-3xl border border-brand-primary/20 shadow-gold">
 
             <img
-              src={aboutImg}
+              src={heroImg}
               alt="About Sunesa Football Club"
               className="h-[460px] w-full object-cover"
               loading="lazy"
