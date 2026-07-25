@@ -21,9 +21,9 @@ import { navigation as siteNavigation } from "@/config/navigation";
 /* ---------- Assets ---------- */
 
 
-import aboutImg from "@/assets/logo/Logo2.png";
+import aboutImg from "@/assets/hero/hero1.png";
 import Logo from "@/assets/logo/Logo.jpg";
-import heroImg from "@/assets/hero/Gallery.jpg";
+import heroImg from "@/assets/gallery/Team (7).jpg";
 
 /* Gallery */
 import galleryTeam1 from "@/assets/gallery/Team (1).jpg";
@@ -270,6 +270,7 @@ function TrustBadge({ className }: { className?: string }) {
     </div>
   );
 }
+          
 
 function Hero() {
   return (
@@ -294,6 +295,22 @@ function Hero() {
         {/* Trust Badge */}
 
         <TrustBadge className="mb-20" />
+       <div className="relative -mt-4 mb-6">
+
+  <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-primary/35 via-brand-secondary/15 to-transparent blur-3xl scale-100" />
+
+  <div className="h-32 w-32 overflow-hidden rounded-full shadow-[0_0_55px_rgba(212,175,55,0.30)] sm:h-40 sm:w-40">
+
+    <img
+      src={Logo}
+      alt="Sunesa Football Club Logo"
+      className="h-full w-full scale-[1.10] object-cover"
+    />
+
+  </div>
+
+</div>
+
 
         {/* Hero Text */}
 
@@ -404,6 +421,7 @@ function AboutSection() {
         {/* Hero Image */}
 
         <div className="relative overflow-hidden rounded-3xl border border-brand-primary/20 shadow-gold">
+        <div className="h-[280px] sm:h-[360px] lg:h-[460px] w-full object-cover object-center brightness-105 contrast-110 saturate-125">
 
           <img
             src={heroImg}
@@ -411,7 +429,7 @@ function AboutSection() {
             className="h-[280px] sm:h-[360px] lg:h-[460px] w-full object-cover object-center"
             loading="lazy"
           />
-
+        </div>
           <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-brand-background/10 to-transparent" />
 
           {/* Trust Badge */}
@@ -422,11 +440,22 @@ function AboutSection() {
 
           {/* EST Card */}
 
-         <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
 
-  <div className="rounded-lg border border-brand-primary/20 bg-brand-background/10 px-3 py-2 sm:px-4 sm:py-3 backdrop-blur-2xl">
+  <div
+    className="
+      rounded-lg
+      border border-brand-primary/15
+      bg-brand-background/35
+      px-3 py-2
+      sm:px-4 sm:py-3
+      backdrop-blur-3xl
+      backdrop-saturate-150
+      shadow-[0_8px_24px_rgba(0,0,0,0.18)]
+    "
+  >
 
-    <div className="brand-font text-lg tracking-wider text-gradient-gold sm:text-2xl">
+    <div className="font-display text-lg tracking-[0.08em] text-brand-primary sm:text-2xl">
       EST. 2012
     </div>
 
@@ -434,7 +463,7 @@ function AboutSection() {
 
 </div>
 
-</div>
+        </div>
 
         {/* Header */}
 
