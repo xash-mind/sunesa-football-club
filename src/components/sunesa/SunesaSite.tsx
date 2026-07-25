@@ -4,13 +4,7 @@ import {
   X,
   ShieldCheck,
   Trophy,
-  Dumbbell,
-  Brain,
   Users,
-  HeartPulse,
-  Activity,
-  ClipboardList,
-  Droplets,
   MapPin,
   Phone,
   Mail,
@@ -20,25 +14,33 @@ import {
   Facebook,
   Youtube,
   ArrowRight,
-  Check,
 } from "lucide-react";
 
 import { navigation as siteNavigation } from "@/config/navigation";
 
-import heroImg from "@/assets/hero-training.jpg";
-import aboutImg from "@/assets/about-action.jpg";
-import academyImg from "@/assets/academy-coach.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
-import gallery6 from "@/assets/gallery-6.jpg";
-import news1 from "@/assets/news-1.jpg";
-import news2 from "@/assets/news-2.jpg";
-import news3 from "@/assets/news-3.jpg";
+/* ---------- Assets ---------- */
 
-const LOGO =
-  "/__l5e/assets-v1/3bf6664e-8874-4cff-90af-cfa55ea1df38/sunesa-logo.jpg";
+
+import aboutImg from "@/assets/logo/Logo2.png";
+import Logo from "@/assets/logo/Logo.jpg";
+import heroImg from "@/assets/hero/Gallery.jpg";
+
+/* Gallery */
+import galleryTeam1 from "@/assets/gallery/Team (1).jpg";
+import galleryTeam2 from "@/assets/gallery/Team (2).jpg";
+import galleryTraining1 from "@/assets/gallery/Training (1).jpg";
+import galleryTraining2 from "@/assets/gallery/Training (2).jpg";
+import galleryMatch1 from "@/assets/gallery/Match (1).jpg";
+import galleryMatch2 from "@/assets/gallery/Match (2).jpg";
+import galleryEvent1 from "@/assets/gallery/Events (1).jpg";
+import galleryEvent2 from "@/assets/gallery/Events (6).jpg";
+import galleryEvent3 from "@/assets/gallery/events8.jpg";
+
+/* News */
+import newsMatchday from "@/assets/news/News-MatchDay (1).jpg";
+import newsResult from "@/assets/news/News-Results (1).jpg";
+import newsStartingXI from "@/assets/news/News-StartingTeam (1).jpg";
+
 
 function SectionHeading({
   eyebrow,
@@ -168,14 +170,14 @@ function Navbar() {
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 sm:px-6 lg:grid-cols-[auto_1fr_auto]">
         <a href="#home" className="flex min-w-0 items-center gap-3">
           <img
-            src={LOGO}
+            src={Logo}
             alt="Sunesa Football Club emblem"
             className="h-11 w-11 shrink-0 rounded-full ring-1 ring-[color-mix(in_oklab,var(--gold)_45%,transparent)]"
           />
 
           <div className="min-w-0 leading-tight">
            <div className="brand-font truncate text-base tracking-wider text-foreground">
-           Sunesa Football Club
+           sunesa football club
            </div>
 
             <div className="truncate text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
@@ -258,9 +260,12 @@ function Navbar() {
 function TrustBadge({ className }: { className?: string }) {
   return (
     <div className={className} aria-hidden>
-      <div className="inline-flex items-center gap-3 rounded-full bg-white/6 px-4 py-2 text-sm font-medium text-foreground">
-        <ShieldCheck className="h-5 w-5 text-gold" />
-        <span>Trusted Coaching &amp; Development</span>
+      <div className="inline-flex items-center gap-3 rounded-full border border-brand-primary/25 bg-brand-background/30 px-5 py-2.5 backdrop-blur-xl shadow-gold transition-all duration-300 hover:border-brand-primary/45 hover:bg-brand-background/40">
+        <ShieldCheck className="h-5 w-5 text-brand-primary" />
+
+        <span className="text-sm font-medium tracking-wide text-foreground">
+          Official BDFA Club ⭐
+        </span>
       </div>
     </div>
   );
@@ -269,6 +274,7 @@ function TrustBadge({ className }: { className?: string }) {
 function Hero() {
   return (
     <section id="home" className="relative isolate min-h-screen overflow-hidden">
+
       <img
         src={heroImg}
         alt="Sunesa Football Club players during training"
@@ -277,38 +283,55 @@ function Hero() {
         height={1080}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-charcoal/85 via-charcoal/70 to-charcoal" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,var(--charcoal)_85%)]" />
+      {/* Softer cinematic overlays */}
+
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-background/65 via-brand-background/40 to-brand-background/85" />
+
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_28%,var(--background)_88%)]" />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 pt-32 pb-16 text-center sm:px-6">
 
         <TrustBadge className="mb-8" />
 
+        {/* Logo */}
+
         <div className="relative mb-10">
-          <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-primary/25 to-transparent blur-3xl" />
+
+          <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-primary/30 via-brand-secondary/10 to-transparent blur-3xl" />
 
           <img
-            src={LOGO}
+            src={Logo}
             alt="Sunesa Football Club Logo"
             className="h-32 w-32 rounded-full ring-2 ring-brand-primary/60 shadow-gold sm:h-40 sm:w-40"
           />
+
         </div>
 
-        <h1 className="max-w-5xl font-display text-5xl leading-[0.92] sm:text-6xl md:text-7xl lg:text-8xl">
-          <span className="block text-foreground">
-            One Club.
-          </span>
+        {/* Hero Text */}
 
-          <span className="block text-gradient-gold">
-            One Passion.
-          </span>
+        <div className="relative">
 
-          <span className="block text-foreground">
-            Endless Possibilities.
-          </span>
-        </h1>
+          <div className="absolute -inset-10 -z-10 rounded-[4rem] bg-black/18 blur-3xl" />
 
-        <p className="mt-8 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <h1 className="max-w-5xl font-display text-5xl leading-[0.92] text-white drop-shadow-[0_8px_30px_rgba(0,0,0,0.75)] sm:text-6xl md:text-7xl lg:text-8xl">
+
+            <span className="block">
+              One Club.
+            </span>
+
+            <span className="block text-gradient-gold drop-shadow-[0_0_20px_rgba(214,174,70,0.35)]">
+              One Passion.
+            </span>
+
+            <span className="block">
+              Endless Possibilities.
+            </span>
+
+          </h1>
+
+        </div>
+
+        <p className="mt-8 max-w-3xl text-base leading-relaxed text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] sm:text-lg">
           Sunesa Football Club develops disciplined, confident and technically
           gifted footballers through professional coaching, competitive training
           and a passion for the beautiful game.
@@ -327,43 +350,46 @@ function Hero() {
 
           <a
             href="#about"
-            className="inline-flex w-full items-center justify-center rounded-xl border border-brand-primary/50 px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-brand-primary transition-all duration-300 hover:bg-brand-primary/10 sm:w-auto"
+            className="inline-flex w-full items-center justify-center rounded-xl border border-brand-primary/50 bg-brand-background/20 px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-brand-primary backdrop-blur-md transition-all duration-300 hover:bg-brand-primary/10 sm:w-auto"
           >
             About Us
           </a>
 
         </div>
 
-        <div className="mt-20 grid w-full max-w-3xl grid-cols-3 gap-6 border-t border-border/60 pt-10">
+        <div className="mt-20 grid w-full max-w-3xl grid-cols-3 gap-6 border-t border-brand-primary/20 pt-10">
 
           {[
             {
-              k: "6+",
-              v: "Age Groups",
+              k: "150+",
+              v: "Matches Played",
             },
             {
-              k: "10+",
-              v: "Experienced Coaches",
+              k: "20+",
+              v: "Tournaments",
             },
             {
-              k: "100%",
-              v: "Passion For Football",
+              k: "2012",
+              v: "Established",
             },
           ].map((item) => (
             <div key={item.v} className="text-center">
-              <div className="font-display text-3xl text-brand-primary sm:text-4xl">
+
+              <div className="font-display text-3xl text-gradient-gold sm:text-4xl">
                 {item.k}
               </div>
 
-              <div className="mt-2 text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+              <div className="mt-2 text-[11px] uppercase tracking-[0.24em] text-white/70">
                 {item.v}
               </div>
+
             </div>
           ))}
 
         </div>
 
       </div>
+
     </section>
   );
 }
@@ -379,158 +405,196 @@ function AboutSection() {
   ];
 
   return (
-    <section id="about" className="relative py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
+    <section id="about" className="relative pt-24 pb-14 sm:pt-32 sm:pb-16">
 
-          {/* Image */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-border">
-              <img
-                src={aboutImg}
-                alt="Sunesa Football Club players training"
-                className="h-full w-full object-cover"
-                loading="lazy"
-                width={1400}
-                height={1000}
-              />
+        {/* ================= TOP ================= */}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent" />
+        <div className="grid items-center gap-10 lg:grid-cols-[1.8fr_0.7fr]">
 
-              <div className="absolute bottom-6 left-6">
-                <TrustBadge />
-              </div>
+          {/* Hero Image */}
+
+          <div className="relative overflow-hidden rounded-3xl border border-brand-primary/20 shadow-gold">
+
+            <img
+              src={aboutImg}
+              alt="About Sunesa Football Club"
+              className="h-[460px] w-full object-cover"
+              loading="lazy"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-brand-background/10 to-transparent" />
+
+            <div className="absolute bottom-8 left-8">
+              <TrustBadge />
             </div>
 
-            <div className="absolute -bottom-6 -right-4 hidden rounded-2xl border border-brand-primary/40 bg-brand-surface p-6 shadow-gold lg:block">
-              <div className="font-display text-3xl text-gradient-gold">
+            <div className="absolute bottom-8 right-8 rounded-2xl border border-brand-primary/40 bg-brand-surface/80 p-6 backdrop-blur-md shadow-gold">
+
+              <div className="font-display text-4xl text-gradient-gold">
                 EST. 2012
               </div>
 
-              <div className="mt-1 text-xs uppercase tracking-[0.24em] text-muted-foreground">
+              <div className="mt-2 text-xs uppercase tracking-[0.24em] text-muted-foreground">
                 BDFA 'C' Division Club
               </div>
+
             </div>
-          </div>
+
           </div>
 
-          {/* Content */}
+          {/* Heading */}
 
           <div>
 
             <SectionHeading
               eyebrow="About Sunesa FC"
               title={"Building Bangalore's |Next Generation| of Footballers"}
-              subtitle="Sunesa Football Club was founded in 2012 with one mission — to identify raw talent from the grassroots and shape it into disciplined, match-ready players. From local grounds to BDFA 'C' Division, we provide structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore."
+              subtitle="Sunesa Football Club was founded in 2012 with one mission—to identify raw talent from the grassroots and shape it into disciplined, match-ready players."
             />
 
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
+          </div>
 
-              <div className="glass-card rounded-2xl p-6">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                  Mission
-                </div>
+        </div>
 
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  To identify grassroots talent and develop disciplined,
-                  technically skilled footballers through structured coaching,
-                  competitive match experience and a culture of continuous
-                  improvement.
-                </p>
+        {/* ================= CONTENT ================= */}
+
+        <div className="mt-16">
+
+          <div className="grid gap-6 lg:grid-cols-2">
+
+            <div className="glass-card rounded-2xl p-6">
+
+              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
+                Mission
               </div>
 
-              <div className="glass-card rounded-2xl p-6">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                  Vision
-                </div>
-
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  To become one of Bangalore's leading football clubs by
-                  creating opportunities for players to progress from grassroots
-                  football to senior competitive league football.
-                </p>
-              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                To identify grassroots talent and develop disciplined,
+                technically skilled footballers through structured coaching,
+                competitive match experience and a culture of continuous
+                improvement.
+              </p>
 
             </div>
 
-            <div className="mt-10">
+            <div className="glass-card rounded-2xl p-6">
 
-              <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                Core Values
+              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
+                Vision
               </div>
 
-              <ul className="flex flex-wrap gap-3">
-
-                {values.map((value) => (
-                  <li
-                    key={value}
-                    className="rounded-full border border-border bg-secondary px-4 py-2 text-xs uppercase tracking-wide text-muted-foreground transition-all duration-300 hover:border-brand-primary/40 hover:text-brand-primary"
-                  >
-                    {value}
-                  </li>
-                ))}
-
-              </ul>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                To become one of Bangalore's leading football clubs by creating
+                opportunities for players to progress from grassroots football
+                to senior competitive league football.
+              </p>
 
             </div>
 
-            <div className="mt-14">
+          </div>
 
-              <SectionHeading
-                eyebrow="Why Sunesa FC"
-                title={"Why Players Choose |Sunesa|"}
-                subtitle="We believe great footballers are built through consistent training, competitive experience and a culture that values character just as much as talent."
-                align="center"
-              />
+          {/* Story */}
 
-              <div className="mt-10 grid gap-6 md:grid-cols-3">  
+          <div className="mt-10 glass-card rounded-2xl p-8">
 
-              <div className="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary/30">
+            <p className="text-base leading-8 text-muted-foreground">
+              From local grounds to the BDFA C Division, Sunesa Football Club
+              provides structured coaching, competitive exposure and a clear
+              pathway for young footballers in Bangalore. We believe success is
+              built on consistency, discipline and creating an environment where
+              every player is challenged to improve.
+            </p>
+
+          </div>
+
+          {/* Core Values */}
+
+          <div className="mt-12">
+
+            <div className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
+              Core Values
+            </div>
+
+            <ul className="flex flex-wrap gap-3">
+
+              {values.map((value) => (
+                <li
+                  key={value}
+                  className="rounded-full border border-border bg-secondary px-5 py-2 text-xs uppercase tracking-wide text-muted-foreground transition-all hover:border-brand-primary hover:text-brand-primary"
+                >
+                  {value}
+                </li>
+              ))}
+
+            </ul>
+
+          </div>
+
+          {/* Why Choose */}
+
+          <div className="mt-20">
+
+            <SectionHeading
+              eyebrow="Why Sunesa FC"
+              title={"Why Players Choose |sunesa|"}
+              subtitle="We believe great footballers are built through consistent training, competitive experience and a culture that values character just as much as talent."
+              align="center"
+            />
+
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+
+              <div className="glass-card rounded-2xl p-6">
+
                 <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
                   Discipline
                 </div>
 
-                <h3 className="font-display text-2xl text-foreground">
+                <h3 className="font-display text-2xl">
                   Character First
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Structured training that develops discipline, responsibility
-                  and confidence both on and off the pitch.
+                  Structured training develops discipline, responsibility and
+                  confidence on and off the pitch.
                 </p>
+
               </div>
 
-              <div className="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary/30">
+              <div className="glass-card rounded-2xl p-6">
+
                 <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
                   Development
                 </div>
 
-                <h3 className="font-display text-2xl text-foreground">
+                <h3 className="font-display text-2xl">
                   Train With Purpose
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Professional coaching, technical development and regular
-                  competitive matches help every player improve football IQ,
-                  confidence and performance.
+                  Professional coaching and competitive football accelerate
+                  technical growth and football intelligence.
                 </p>
+
               </div>
 
-              <div className="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary/30">
+              <div className="glass-card rounded-2xl p-6">
+
                 <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
                   Opportunity
                 </div>
 
-                <h3 className="font-display text-2xl text-foreground">
+                <h3 className="font-display text-2xl">
                   Pathway To Competition
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  A clear progression from academy training to senior football
-                  and BDFA league competition, giving players opportunities to
-                  showcase and develop their talent.
+                  A clear progression from academy football to senior league
+                  competition provides players with meaningful opportunities to
+                  grow.
                 </p>
+
               </div>
 
             </div>
@@ -538,7 +602,9 @@ function AboutSection() {
           </div>
 
         </div>
+
       </div>
+
     </section>
   );
 }
@@ -548,51 +614,57 @@ function AboutSection() {
 
 const GALLERY = [
   {
-    src: gallery1,
+    src: galleryTeam1,
     cat: "Team",
-    alt: "Sunesa FC team photo",
+    alt: "Sunesa team photo",
     span: "row-span-2",
   },
   {
-    src: gallery2,
+    src: galleryTraining1,
     cat: "Training",
     alt: "Training session",
     span: "",
   },
   {
-    src: gallery3,
+    src: galleryMatch1,
     cat: "Matches",
     alt: "Match action",
     span: "",
   },
   {
-    src: gallery5,
+    src: galleryEvent1,
     cat: "Events",
     alt: "Club event",
     span: "row-span-2",
   },
   {
-    src: news1,
+    src: galleryTeam2,
     cat: "Team",
-    alt: "Team gallery",
+    alt: "Sunesa squad",
     span: "",
   },
   {
-    src: news2,
+    src: galleryTraining2,
     cat: "Training",
-    alt: "Training gallery",
+    alt: "Coaching session",
     span: "",
   },
   {
-    src: gallery6,
+    src: galleryMatch2,
     cat: "Matches",
-    alt: "Match gallery",
+    alt: "Competitive match",
     span: "",
   },
   {
-    src: news3,
+    src: galleryEvent2,
     cat: "Events",
-    alt: "Events gallery",
+    alt: "Club event",
+    span: "",
+  },
+  {
+    src: galleryEvent3,
+    cat: "Events",
+    alt: "Club event",
     span: "",
   },
 ];
@@ -613,15 +685,15 @@ function GallerySection() {
   );
 
   return (
-    <section id="gallery" className="relative py-24 sm:py-32">
+    <section id="gallery" className="relative pt-14 pb-24 sm:pt-16 sm:pb-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
 
           <SectionHeading
             eyebrow="Gallery"
-            title={"Moments From |Sunesa|"}
-            subtitle="Explore the journey of Sunesa Football Club through team moments, training sessions, competitive matches and club events."
+            title={"Moments From |sunesa|"}
+            subtitle="Explore Sunesa's journey through training sessions, matchdays, team moments and memorable events since 2012."
           />
 
           <div className="flex flex-wrap gap-2">
@@ -656,7 +728,7 @@ function GallerySection() {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
 
               <figcaption className="absolute bottom-4 left-4 rounded-full bg-brand-background/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-primary backdrop-blur">
                 {g.cat}
@@ -675,31 +747,30 @@ function GallerySection() {
 
 const UPDATES = [
   {
-    img: news1,
-    date: "20 Jul 2026",
+    img: newsResult,
+    date: "Latest Result",
     cat: "Match Result",
-    title: "Sunesa FC 2 - 1 Opponent FC",
+    title: "Full Time",
     excerpt:
-      "An important victory in the BDFA 'C' Division as the team continued its strong run with a disciplined performance.",
+      "Catch up on Sunesa's latest result, goalscorers and key moments from the team's most recent competitive fixture.",
   },
   {
-    img: news2,
-    date: "Now Open",
-    cat: "Trials",
-    title: "Academy Trials 2026",
+    img: newsMatchday,
+    date: "Upcoming Fixture",
+    cat: "Matchday",
+    title: "Next Match",
     excerpt:
-      "Trials are now open for boys and girls aged 12–18. Register now to begin your football journey with Sunesa FC.",
+      "Support Sunesa in the next fixture. Check the opponent, venue and kickoff details as the team prepares for another important game.",
   },
   {
-    img: news3,
-    date: "Weekly Schedule",
-    cat: "Training",
-    title: "Senior Team Training",
+    img: newsStartingXI,
+    date: "Matchday",
+    cat: "Starting XI",
+    title: "Starting Line-up",
     excerpt:
-      "Training sessions are held Monday to Friday at 6:00 AM and 5:00 PM. Join us as we prepare for the upcoming season.",
+      "See the selected squad and formation chosen by the coaching staff ahead of kickoff.",
   },
 ];
-
 function NewsSection() {
   return (
     <section
@@ -710,7 +781,7 @@ function NewsSection() {
 
         <SectionHeading
           eyebrow="From The Ground"
-          title={"Latest From |Sunesa|"}
+          title={"Latest From |sunesa|"}
           subtitle="Stay updated with match results, trial announcements, training schedules and everything happening around the club."
         />
 
@@ -765,7 +836,6 @@ function NewsSection() {
     </section>
   );
 }
-
 /* ---------- Apply For Trials ---------- */
 
 function TrialsSection() {
@@ -1016,7 +1086,7 @@ function ContactSection() {
 
         <SectionHeading
           eyebrow="Contact"
-          title={"Visit |Sunesa|"}
+          title={"Visit |sunesa|"}
           subtitle="Whether you're looking to join our academy, support the club or simply learn more, we'd love to hear from you."
         />
 
@@ -1159,7 +1229,7 @@ function Footer() {
             <div className="flex items-center gap-3">
 
               <img
-                src={LOGO}
+                src={Logo}
                 alt="Sunesa Football Club"
                 className="h-12 w-12 rounded-full ring-1 ring-brand-primary/50"
               />
@@ -1167,7 +1237,7 @@ function Footer() {
               <div>
 
                 <div className="brand-font truncate text-sm tracking-[0.08em] text-foreground">
-                 Sunesa Football Club
+                 sunesa football club
                 </div>
 
                 <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
