@@ -21,9 +21,9 @@ import { navigation as siteNavigation } from "@/config/navigation";
 /* ---------- Assets ---------- */
 
 
-import aboutImg from "@/assets/logo/Logo2.png";
+import aboutImg from "@/assets/hero/hero1.png";
 import Logo from "@/assets/logo/Logo.jpg";
-import heroImg from "@/assets/hero/Gallery.jpg";
+import heroImg from "@/assets/gallery/Team (7).jpg";
 
 /* Gallery */
 import galleryTeam1 from "@/assets/gallery/Team (1).jpg";
@@ -270,42 +270,54 @@ function TrustBadge({ className }: { className?: string }) {
     </div>
   );
 }
+          
 
 function Hero() {
   return (
     <section id="home" className="relative isolate min-h-screen overflow-hidden">
 
       <img
-        src={heroImg}
-        alt="Sunesa Football Club players during training"
-        className="absolute inset-0 h-full w-full object-cover"
-        width={1920}
-        height={1080}
-      />
+  src={aboutImg}
+  alt="Sunesa Football Club players during training"
+  className="
+    absolute inset-0
+    h-full w-full
+    object-cover
+    object-[87%_center]
+    sm:object-center
+    scale-105
+  "
+  width={1920}
+  height={1080}
+/>
 
-      {/* Softer cinematic overlays */}
+      {/* Cinematic overlays */}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-background/65 via-brand-background/40 to-brand-background/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-background/60 via-brand-background/35 to-brand-background/82" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_28%,var(--background)_88%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,var(--background)_88%)]" />
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 pt-32 pb-16 text-center sm:px-6">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 pt-20 pb-16 text-center sm:px-6">
 
-        <TrustBadge className="mb-8" />
+        {/* Trust Badge */}
 
-        {/* Logo */}
+        <TrustBadge className="mb-20" />
+       <div className="relative -mt-4 mb-6">
 
-        <div className="relative mb-10">
+  <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-primary/35 via-brand-secondary/15 to-transparent blur-3xl scale-100" />
 
-          <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-primary/30 via-brand-secondary/10 to-transparent blur-3xl" />
+  <div className="h-32 w-32 overflow-hidden rounded-full shadow-[0_0_55px_rgba(212,175,55,0.30)] sm:h-40 sm:w-40">
 
-          <img
-            src={Logo}
-            alt="Sunesa Football Club Logo"
-            className="h-32 w-32 rounded-full ring-2 ring-brand-primary/60 shadow-gold sm:h-40 sm:w-40"
-          />
+    <img
+      src={Logo}
+      alt="Sunesa Football Club Logo"
+      className="h-full w-full scale-[1.10] object-cover"
+    />
 
-        </div>
+  </div>
+
+</div>
+
 
         {/* Hero Text */}
 
@@ -362,15 +374,15 @@ function Hero() {
           {[
             {
               k: "150+",
-              v: "Matches Played",
+              v: "Players",
             },
             {
-              k: "20+",
-              v: "Tournaments",
+              k: "14+",
+              v: "Years",
             },
             {
-              k: "2012",
-              v: "Established",
+              k: "BDFA",
+              v: "League Club",
             },
           ].map((item) => (
             <div key={item.v} className="text-center">
@@ -405,58 +417,76 @@ function AboutSection() {
   ];
 
   return (
-    <section id="about" className="relative pt-24 pb-14 sm:pt-32 sm:pb-16">
+  <section id="about" className="relative pt-24 pb-14 sm:pt-32 sm:pb-16">
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
-        {/* ================= TOP ================= */}
+      {/* ================= TOP ================= */}
 
-        <div className="grid items-center gap-10 lg:grid-cols-[1.8fr_0.7fr]">
+      <div className="grid items-center gap-10 lg:grid-cols-[1.8fr_0.7fr]">
 
-          {/* Hero Image */}
+        {/* Hero Image */}
 
-          <div className="relative overflow-hidden rounded-3xl border border-brand-primary/20 shadow-gold">
+        <div className="relative overflow-hidden rounded-3xl border border-brand-primary/20 shadow-gold">
+        <div className="h-[280px] sm:h-[360px] lg:h-[460px] w-full object-cover object-center brightness-105 contrast-110 saturate-125">
 
-            <img
-              src={aboutImg}
-              alt="About Sunesa Football Club"
-              className="h-[460px] w-full object-cover"
-              loading="lazy"
-            />
+          <img
+            src={heroImg}
+            alt="About Sunesa Football Club"
+            className="h-[280px] sm:h-[360px] lg:h-[460px] w-full object-cover object-center"
+            loading="lazy"
+          />
+        </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-brand-background/10 to-transparent" />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-brand-background/10 to-transparent" />
+          {/* Trust Badge */}
 
-            <div className="absolute bottom-8 left-8">
-              <TrustBadge />
-            </div>
-
-            <div className="absolute bottom-8 right-8 rounded-2xl border border-brand-primary/40 bg-brand-surface/80 p-6 backdrop-blur-md shadow-gold">
-
-              <div className="font-display text-4xl text-gradient-gold">
-                EST. 2012
-              </div>
-
-              <div className="mt-2 text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                BDFA 'C' Division Club
-              </div>
-
-            </div>
-
+          <div className="absolute bottom-6 left-6">
+            <TrustBadge />
           </div>
 
-          {/* Heading */}
+          {/* EST Card */}
 
-          <div>
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
 
-            <SectionHeading
-              eyebrow="About Sunesa FC"
-              title={"Building Bangalore's |Next Generation| of Footballers"}
-              subtitle="Sunesa Football Club was founded in 2012 with one mission—to identify raw talent from the grassroots and shape it into disciplined, match-ready players."
-            />
+  <div
+    className="
+      rounded-lg
+      border border-brand-primary/15
+      bg-brand-background/35
+      px-3 py-2
+      sm:px-4 sm:py-3
+      backdrop-blur-3xl
+      backdrop-saturate-150
+      shadow-[0_8px_24px_rgba(0,0,0,0.18)]
+    "
+  >
 
-          </div>
+    <div className="font-display text-lg tracking-[0.08em] text-brand-primary sm:text-2xl">
+      EST. 2012
+    </div>
+
+  </div>
+
+</div>
 
         </div>
+
+        {/* Header */}
+
+        <div>
+
+          <SectionHeading
+            eyebrow="About Sunesa FC"
+            title={"Building Bangalore's |Next Generation| of Footballers"}
+            subtitle="Sunesa Football Club was founded in 2012 with one mission — to identify raw talent from the grassroots and shape it into disciplined, match-ready players. From local grounds to BDFA 'C' Division, we provide structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore."
+          />
+
+        </div>
+
+      </div>
+
+      
 
         {/* ================= CONTENT ================= */}
 
