@@ -10,33 +10,144 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminFormsIndexRouteImport } from './routes/admin/forms/index'
+import { Route as AdminGalleryIndexRouteImport } from './routes/admin/gallery/index'
+import { Route as AdminNewsIndexRouteImport } from './routes/admin/news/index'
+import { Route as AdminNewsSlugRouteImport } from './routes/admin/news/$slug'
+import { Route as AdminNewsNewRouteImport } from './routes/admin/news/new'
+import { Route as AdminPagesIndexRouteImport } from './routes/admin/pages/index'
+import { Route as AdminNewsEditIdRouteImport } from './routes/admin/news/edit.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFormsIndexRoute = AdminFormsIndexRouteImport.update({
+  id: '/forms/',
+  path: '/forms/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminGalleryIndexRoute = AdminGalleryIndexRouteImport.update({
+  id: '/gallery/',
+  path: '/gallery/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNewsIndexRoute = AdminNewsIndexRouteImport.update({
+  id: '/news/',
+  path: '/news/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNewsSlugRoute = AdminNewsSlugRouteImport.update({
+  id: '/news/$slug',
+  path: '/news/$slug',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNewsNewRoute = AdminNewsNewRouteImport.update({
+  id: '/news/new',
+  path: '/news/new',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPagesIndexRoute = AdminPagesIndexRouteImport.update({
+  id: '/pages/',
+  path: '/pages/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNewsEditIdRoute = AdminNewsEditIdRouteImport.update({
+  id: '/news/edit/$id',
+  path: '/news/edit/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
+  '/admin/news/$slug': typeof AdminNewsSlugRoute
+  '/admin/news/new': typeof AdminNewsNewRoute
+  '/admin/forms/': typeof AdminFormsIndexRoute
+  '/admin/gallery/': typeof AdminGalleryIndexRoute
+  '/admin/news/': typeof AdminNewsIndexRoute
+  '/admin/pages/': typeof AdminPagesIndexRoute
+  '/admin/news/edit/$id': typeof AdminNewsEditIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/news/$slug': typeof AdminNewsSlugRoute
+  '/admin/news/new': typeof AdminNewsNewRoute
+  '/admin/forms': typeof AdminFormsIndexRoute
+  '/admin/gallery': typeof AdminGalleryIndexRoute
+  '/admin/news': typeof AdminNewsIndexRoute
+  '/admin/pages': typeof AdminPagesIndexRoute
+  '/admin/news/edit/$id': typeof AdminNewsEditIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
+  '/admin/news/$slug': typeof AdminNewsSlugRoute
+  '/admin/news/new': typeof AdminNewsNewRoute
+  '/admin/forms/': typeof AdminFormsIndexRoute
+  '/admin/gallery/': typeof AdminGalleryIndexRoute
+  '/admin/news/': typeof AdminNewsIndexRoute
+  '/admin/pages/': typeof AdminPagesIndexRoute
+  '/admin/news/edit/$id': typeof AdminNewsEditIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin/'
+    | '/admin/news/$slug'
+    | '/admin/news/new'
+    | '/admin/forms/'
+    | '/admin/gallery/'
+    | '/admin/news/'
+    | '/admin/pages/'
+    | '/admin/news/edit/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/admin/news/$slug'
+    | '/admin/news/new'
+    | '/admin/forms'
+    | '/admin/gallery'
+    | '/admin/news'
+    | '/admin/pages'
+    | '/admin/news/edit/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/admin/'
+    | '/admin/news/$slug'
+    | '/admin/news/new'
+    | '/admin/forms/'
+    | '/admin/gallery/'
+    | '/admin/news/'
+    | '/admin/pages/'
+    | '/admin/news/edit/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +159,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/forms/': {
+      id: '/admin/forms/'
+      path: '/forms'
+      fullPath: '/admin/forms/'
+      preLoaderRoute: typeof AdminFormsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/gallery/': {
+      id: '/admin/gallery/'
+      path: '/gallery'
+      fullPath: '/admin/gallery/'
+      preLoaderRoute: typeof AdminGalleryIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/news/': {
+      id: '/admin/news/'
+      path: '/news'
+      fullPath: '/admin/news/'
+      preLoaderRoute: typeof AdminNewsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/news/$slug': {
+      id: '/admin/news/$slug'
+      path: '/news/$slug'
+      fullPath: '/admin/news/$slug'
+      preLoaderRoute: typeof AdminNewsSlugRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/news/new': {
+      id: '/admin/news/new'
+      path: '/news/new'
+      fullPath: '/admin/news/new'
+      preLoaderRoute: typeof AdminNewsNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pages/': {
+      id: '/admin/pages/'
+      path: '/pages'
+      fullPath: '/admin/pages/'
+      preLoaderRoute: typeof AdminPagesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/news/edit/$id': {
+      id: '/admin/news/edit/$id'
+      path: '/news/edit/$id'
+      fullPath: '/admin/news/edit/$id'
+      preLoaderRoute: typeof AdminNewsEditIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminNewsSlugRoute: typeof AdminNewsSlugRoute
+  AdminNewsNewRoute: typeof AdminNewsNewRoute
+  AdminFormsIndexRoute: typeof AdminFormsIndexRoute
+  AdminGalleryIndexRoute: typeof AdminGalleryIndexRoute
+  AdminNewsIndexRoute: typeof AdminNewsIndexRoute
+  AdminPagesIndexRoute: typeof AdminPagesIndexRoute
+  AdminNewsEditIdRoute: typeof AdminNewsEditIdRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+  AdminNewsSlugRoute: AdminNewsSlugRoute,
+  AdminNewsNewRoute: AdminNewsNewRoute,
+  AdminFormsIndexRoute: AdminFormsIndexRoute,
+  AdminGalleryIndexRoute: AdminGalleryIndexRoute,
+  AdminNewsIndexRoute: AdminNewsIndexRoute,
+  AdminPagesIndexRoute: AdminPagesIndexRoute,
+  AdminNewsEditIdRoute: AdminNewsEditIdRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
