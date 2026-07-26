@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { navigation as siteNavigation } from "@/config/navigation";
+import { getPublishedNews } from "@/services/news";
 
 /* ---------- Assets ---------- */
 
@@ -774,40 +775,48 @@ function GallerySection() {
 }
 
 /* ---------- From The Ground ---------- */
-
-const UPDATES = [
-  {
-    img: newsResult,
-    date: "Latest Result",
-    cat: "Match Result",
-    title: "Full Time",
-    excerpt:
-      "Catch up on Sunesa's latest result, goalscorers and key moments from the team's most recent competitive fixture.",
-  },
-  {
-    img: newsMatchday,
-    date: "Upcoming Fixture",
-    cat: "Matchday",
-    title: "Next Match",
-    excerpt:
-      "Support Sunesa in the next fixture. Check the opponent, venue and kickoff details as the team prepares for another important game.",
-  },
-  {
-    img: newsStartingXI,
-    date: "Matchday",
-    cat: "Starting XI",
-    title: "Starting Line-up",
-    excerpt:
-      "See the selected squad and formation chosen by the coaching staff ahead of kickoff.",
-  },
-];
 function NewsSection() {
+
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+
+    async function loadNews() {
+
+      try {
+
+        const data = await getPublishedNews();
+
+        setPosts(data);
+
+      } catch(err) {
+
+        console.error(err);
+
+      } finally {
+
+        setLoading(false);
+
+      }
+
+    }
+
+    loadNews();
+
+  }, []);
+
+
+
   return (
     <section
       id="news"
       className="relative bg-brand-surface/40 py-24 sm:py-32"
     >
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
+
 
         <SectionHeading
           eyebrow="From The Ground"
@@ -815,57 +824,84 @@ function NewsSection() {
           subtitle="Stay updated with match results, trial announcements, training schedules and everything happening around the club."
         />
 
+
+        {loading && (
+          <p className="mt-10 text-muted-foreground">
+            Loading updates...
+          </p>
+        )}
+
+
+        {!loading && posts.length === 0 && (
+          <p className="mt-10 text-muted-foreground">
+            No updates available yet.
+          </p>
+        )}
+
+
+
         <div className="mt-14 grid gap-6 md:grid-cols-3">
 
-          {UPDATES.map((post) => (
+          {posts.map((post)=> (
+
             <article
-              key={post.title}
+              key={post.id}
               className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-brand-background transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary/40"
             >
+
               <div className="relative aspect-[16/10] overflow-hidden">
+
                 <img
-                  src={post.img}
+                  src={post.thumbnail}
                   alt={post.title}
-                  loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
-                <span className="absolute left-4 top-4 rounded-full bg-brand-secondary/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground">
-                  {post.cat}
+
+                <span className="absolute left-4 top-4 rounded-full bg-brand-secondary/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]">
+                  News
                 </span>
+
               </div>
+
 
               <div className="flex flex-1 flex-col p-6">
 
-                <div className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                  {post.date}
-                </div>
-
-                <h3 className="mt-3 font-display text-xl leading-snug text-foreground">
+                <h3 className="font-display text-xl">
                   {post.title}
                 </h3>
 
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+
+                <p className="mt-3 flex-1 text-sm text-muted-foreground">
                   {post.excerpt}
                 </p>
 
-                <button
-                  className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary transition-colors hover:text-brand-primary-soft"
-                >
-                  Read Update
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
+
+                <a
+  href={`/admin/news/${post.slug}`}
+  className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary transition-colors hover:text-brand-primary-soft"
+>
+  Read Update
+  <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+</a>
+
 
               </div>
+
+
             </article>
+
           ))}
 
         </div>
 
+
       </div>
+
     </section>
   );
 }
+
 /* ---------- Apply For Trials ---------- */
 
 function TrialsSection() {
