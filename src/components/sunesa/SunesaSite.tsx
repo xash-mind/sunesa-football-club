@@ -874,7 +874,7 @@ function NewsSection() {
         </div>
       ) : (
        <>
-       <div className="mb-4 flex items-center justify-end gap-2 text-xs font-medium uppercase tracking-[0.22em] text-brand-primary/80">
+       <div className="mt-6 mb-4 flex items-center justify-start gap-2 text-xs font-medium uppercase tracking-[0.22em] text-brand-primary/80">
        <span className="scroll-hint-arrow">←</span>
        <span>Swipe to explore</span>
        <span className="scroll-hint-arrow-right">→</span>
