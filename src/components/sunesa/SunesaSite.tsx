@@ -809,97 +809,112 @@ function NewsSection() {
 
 
 
-  return (
-    <section
-      id="news"
-      className="relative bg-brand-surface/40 py-24 sm:py-32"
-    >
+ return (
+  <section
+    id="news"
+    className="relative bg-brand-surface/40 py-24 sm:py-32"
+  >
+    <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <SectionHeading
+        eyebrow="From The Ground"
+        title={"Latest From |sunesa|"}
+        subtitle="Stay updated with match results, trial announcements, training schedules and everything happening around the club."
+      />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      {loading && (
+        <p className="mt-10 text-muted-foreground">
+          Loading updates...
+        </p>
+      )}
 
+      {!loading && posts.length === 0 && (
+        <p className="mt-10 text-muted-foreground">
+          No updates available yet.
+        </p>
+      )}
 
-        <SectionHeading
-          eyebrow="From The Ground"
-          title={"Latest From |sunesa|"}
-          subtitle="Stay updated with match results, trial announcements, training schedules and everything happening around the club."
-        />
-
-
-        {loading && (
-          <p className="mt-10 text-muted-foreground">
-            Loading updates...
-          </p>
-        )}
-
-
-        {!loading && posts.length === 0 && (
-          <p className="mt-10 text-muted-foreground">
-            No updates available yet.
-          </p>
-        )}
-
-
-
+      {posts.length <= 3 ? (
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-
-          {posts.map((post)=> (
-
+          {posts.map((post) => (
             <article
               key={post.id}
               className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-brand-background transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary/40"
             >
-
               <div className="relative aspect-[16/10] overflow-hidden">
-
                 <img
                   src={post.thumbnail}
                   alt={post.title}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
-
                 <span className="absolute left-4 top-4 rounded-full bg-brand-secondary/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]">
                   News
                 </span>
-
               </div>
 
-
               <div className="flex flex-1 flex-col p-6">
-
                 <h3 className="font-display text-xl">
                   {post.title}
                 </h3>
-
 
                 <p className="mt-3 flex-1 text-sm text-muted-foreground">
                   {post.excerpt}
                 </p>
 
-
                 <a
-  href={`/admin/news/${post.slug}`}
-  className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary transition-colors hover:text-brand-primary-soft"
->
-  Read Update
-  <ArrowRight className="h-3.5 w-3.5 shrink-0" />
-</a>
+                  href={`/admin/news/${post.slug}`}
+                  className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary transition-colors hover:text-brand-primary-soft"
+                >
+                  Read Update
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div className="news-scroll mt-14 flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory">
+          {posts.map((post) => (
+            <article
+              key={post.id}
+              className="group flex min-w-[340px] max-w-[340px] snap-start flex-col overflow-hidden rounded-2xl border border-border bg-brand-background transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary/40"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={post.thumbnail}
+                  alt={post.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
 
-
+                <span className="absolute left-4 top-4 rounded-full bg-brand-secondary/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]">
+                  News
+                </span>
               </div>
 
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="font-display text-xl">
+                  {post.title}
+                </h3>
 
+                <p className="mt-3 flex-1 text-sm text-muted-foreground">
+                  {post.excerpt}
+                </p>
+
+                <a
+                  href={`/admin/news/${post.slug}`}
+                  className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary transition-colors hover:text-brand-primary-soft"
+                >
+                  Read Update
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+                </a>
+              </div>
             </article>
-
           ))}
-
         </div>
-
-
-      </div>
-
-    </section>
-  );
+      )}
+    </div>
+  </section>
+);
 }
 
 /* ---------- Apply For Trials ---------- */

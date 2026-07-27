@@ -335,3 +335,26 @@
 .ProseMirror em {
   font-style: italic;
 }
+/* Horizontal Scrollbar */
+
+.news-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 30, 50, 0.7) transparent;
+}
+
+.news-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.news-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.news-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 30, 50, 0.7);
+  border-radius: 999px;
+}
+
+.news-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 155, 80, 0.9);
+}
