@@ -27,15 +27,11 @@ import Logo from "@/assets/logo/Logo.jpg";
 import heroImg from "@/assets/gallery/Team (7).jpg";
 
 /* Gallery */
-import galleryTeam1 from "@/assets/gallery/Team (1).jpg";
-import galleryTeam2 from "@/assets/gallery/Team (2).jpg";
-import galleryTraining1 from "@/assets/gallery/Training (1).jpg";
-import galleryTraining2 from "@/assets/gallery/Training (2).jpg";
-import galleryMatch1 from "@/assets/gallery/Match (1).jpg";
-import galleryMatch2 from "@/assets/gallery/Match (2).jpg";
-import galleryEvent1 from "@/assets/gallery/Events (1).jpg";
-import galleryEvent2 from "@/assets/gallery/Events (6).jpg";
-import galleryEvent3 from "@/assets/gallery/events8.jpg";
+import {
+  getAllGalleryImages,
+  type GalleryImage,
+} from "@/services/gallery";
+
 
 /* News */
 import newsMatchday from "@/assets/news/News-MatchDay (1).jpg";
@@ -643,62 +639,7 @@ function AboutSection() {
 
 /* ---------- Gallery ---------- */
 
-const GALLERY = [
-  {
-    src: galleryTeam1,
-    cat: "Team",
-    alt: "Sunesa team photo",
-    span: "row-span-2",
-  },
-  {
-    src: galleryTraining1,
-    cat: "Training",
-    alt: "Training session",
-    span: "",
-  },
-  {
-    src: galleryMatch1,
-    cat: "Matches",
-    alt: "Match action",
-    span: "",
-  },
-  {
-    src: galleryEvent1,
-    cat: "Events",
-    alt: "Club event",
-    span: "row-span-2",
-  },
-  {
-    src: galleryTeam2,
-    cat: "Team",
-    alt: "Sunesa squad",
-    span: "",
-  },
-  {
-    src: galleryTraining2,
-    cat: "Training",
-    alt: "Coaching session",
-    span: "",
-  },
-  {
-    src: galleryMatch2,
-    cat: "Matches",
-    alt: "Competitive match",
-    span: "",
-  },
-  {
-    src: galleryEvent2,
-    cat: "Events",
-    alt: "Club event",
-    span: "",
-  },
-  {
-    src: galleryEvent3,
-    cat: "Events",
-    alt: "Club event",
-    span: "",
-  },
-];
+
 
 const CATS = [
   "All",
@@ -709,14 +650,46 @@ const CATS = [
 ] as const;
 
 function GallerySection() {
-  const [active, setActive] = useState<(typeof CATS)[number]>("All");
+  const [active, setActive] =
+    useState<(typeof CATS)[number]>("All");
 
-  const filtered = GALLERY.filter(
-    (g) => active === "All" || g.cat === active
+  const [selectedImage, setSelectedImage] =
+    useState<GalleryImage | null>(null);
+
+  const [gallery, setGallery] =
+    useState<GalleryImage[]>([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  useEffect(() => {
+    async function loadGallery() {
+      try {
+        const data =
+          await getAllGalleryImages();
+
+        setGallery(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadGallery();
+  }, []);
+
+  const filtered = gallery.filter(
+    (image) =>
+      active === "All" ||
+      image.category === active
   );
 
   return (
-    <section id="gallery" className="relative pt-14 pb-24 sm:pt-16 sm:pb-32">
+    <section
+      id="gallery"
+      className="relative pt-14 pb-24 sm:pt-16 sm:pb-32"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
@@ -745,35 +718,99 @@ function GallerySection() {
 
         </div>
 
-        <div className="mt-12 grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {loading ? (
 
-          {filtered.map((g, i) => (
-            <figure
-              key={i}
-              className={`group relative overflow-hidden rounded-2xl border border-border ${g.span}`}
-            >
-              <img
-                src={g.src}
-                alt={g.alt}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+          <p className="mt-12 text-center text-muted-foreground">
+            Loading gallery...
+          </p>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
+        ) : (
 
-              <figcaption className="absolute bottom-4 left-4 rounded-full bg-brand-background/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-primary backdrop-blur">
-                {g.cat}
-              </figcaption>
-            </figure>
-          ))}
+          <div className="mt-12 grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+
+            {filtered.map((g, i) => (
+
+              <figure
+                key={g.id}
+                onClick={() => setSelectedImage(g)}
+                className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-border transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary hover:shadow-gold ${
+                  i % 7 === 0 ? "row-span-2" : ""
+                } ${
+                  i % 11 === 0 ? "col-span-2" : ""
+                }`}
+              >
+
+                <img
+                  src={g.image_url}
+                  alt={g.title ?? g.category}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
+
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
+                  <span className="text-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    🔍
+                  </span>
+                </div>
+
+                <figcaption className="absolute bottom-4 left-4 rounded-full bg-brand-background/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-primary backdrop-blur">
+                  {g.category}
+                </figcaption>
+
+              </figure>
+
+            ))}
+
+          </div>
+
+        )}
+
+      </div>
+
+      {selectedImage && (
+
+        <div
+          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6 backdrop-blur-md animate-in fade-in duration-200"
+        >
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedImage(null);
+            }}
+            className="absolute right-6 top-6 rounded-full bg-brand-background/80 px-4 py-2 text-xl text-white transition hover:bg-brand-primary"
+          >
+            ✕
+          </button>
+
+          <img
+            src={selectedImage.image_url}
+            alt={
+              selectedImage.title ??
+              selectedImage.category
+            }
+            onClick={(e) =>
+              e.stopPropagation()
+            }
+            className="max-h-[90vh] max-w-[90vw] rounded-3xl object-contain shadow-2xl"
+          />
+
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full bg-brand-background/80 px-5 py-2 backdrop-blur">
+            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-primary">
+              {selectedImage.category}
+            </span>
+          </div>
 
         </div>
 
-      </div>
+      )}
+
     </section>
   );
 }
-
 /* ---------- From The Ground ---------- */
 function NewsSection() {
 
