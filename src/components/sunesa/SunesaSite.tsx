@@ -873,6 +873,13 @@ function NewsSection() {
           ))}
         </div>
       ) : (
+       <>
+       <div className="mb-4 flex items-center justify-end gap-2 text-xs font-medium uppercase tracking-[0.22em] text-brand-primary/80">
+       <span className="scroll-hint-arrow">←</span>
+       <span>Swipe to explore</span>
+       <span className="scroll-hint-arrow-right">→</span>
+       </div>
+
         <div className="news-scroll mt-14 flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory">
           {posts.map((post) => (
             <article
@@ -911,9 +918,11 @@ function NewsSection() {
             </article>
           ))}
         </div>
+        </>
       )}
     </div>
   </section>
+  
 );
 }
 

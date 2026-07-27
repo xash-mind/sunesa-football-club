@@ -358,3 +358,46 @@
 .news-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(196, 155, 80, 0.9);
 }
+/* ---------- News Scroll Hint ---------- */
+
+.scroll-hint-arrow,
+.scroll-hint-arrow-right {
+  display: inline-block;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.scroll-hint-arrow {
+  animation-name: hintLeft;
+}
+
+.scroll-hint-arrow-right {
+  animation-name: hintRight;
+}
+
+@keyframes hintLeft {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: .6;
+  }
+
+  50% {
+    transform: translateX(-6px);
+    opacity: 1;
+  }
+}
+
+@keyframes hintRight {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: .6;
+  }
+
+  50% {
+    transform: translateX(6px);
+    opacity: 1;
+  }
+}
