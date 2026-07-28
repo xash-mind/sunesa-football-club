@@ -15,6 +15,7 @@ import {
   Youtube,
   ArrowRight,
 } from "lucide-react";
+import { usePages } from "@/hooks/usePages";
 
 import { navigation as siteNavigation } from "@/config/navigation";
 import { getPublishedNews } from "@/services/news";
@@ -254,22 +255,46 @@ function Navbar() {
 
 /* ---------- Hero ---------- */
 
-function TrustBadge({ className }: { className?: string }) {
+function TrustBadge({
+  className,
+  badge,
+}: {
+  className?: string;
+  badge?: string;
+}) {
   return (
     <div className={className} aria-hidden>
       <div className="inline-flex items-center gap-3 rounded-full border border-brand-primary/25 bg-brand-background/30 px-5 py-2.5 backdrop-blur-xl shadow-gold transition-all duration-300 hover:border-brand-primary/45 hover:bg-brand-background/40">
         <ShieldCheck className="h-5 w-5 text-brand-primary" />
 
         <span className="text-sm font-medium tracking-wide text-foreground">
-          Official BDFA Club ⭐
+          {badge ?? "Official BDFA Club ⭐"}
         </span>
       </div>
     </div>
   );
 }
           
-
-function Hero() {
+type HeroContent = {
+  badge?: string;
+  heading1?: string;
+  heading2?: string;
+  heading3?: string;
+  description?: string;
+  primaryButton?: string;
+  primaryButtonLink?: string;
+  secondaryButton?: string;
+  secondaryButtonLink?: string;
+  stats?: {
+    value: string;
+    label: string;
+  }[];
+};
+function Hero({
+  hero,
+}: {
+  hero?: HeroContent;
+}) {
   return (
     <section id="home" className="relative isolate min-h-screen overflow-hidden">
 
@@ -298,7 +323,10 @@ function Hero() {
 
         {/* Trust Badge */}
 
-        <TrustBadge className="mb-20" />
+       <TrustBadge
+  className="mb-20"
+  badge={hero?.badge}
+/>
        <div className="relative -mt-4 mb-6">
 
   <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-primary/35 via-brand-secondary/15 to-transparent blur-3xl scale-100" />
@@ -325,15 +353,15 @@ function Hero() {
           <h1 className="max-w-5xl font-display text-5xl leading-[0.92] text-white drop-shadow-[0_8px_30px_rgba(0,0,0,0.75)] sm:text-6xl md:text-7xl lg:text-8xl">
 
             <span className="block">
-              One Club.
+             {hero?.heading1 ?? "One Club."}
             </span>
 
             <span className="block text-gradient-gold drop-shadow-[0_0_20px_rgba(214,174,70,0.35)]">
-              One Passion.
+              {hero?.heading2 ?? "One Passion."}
             </span>
 
             <span className="block">
-              Endless Possibilities.
+              {hero?.heading3 ?? "Endless Possibilities."}
             </span>
 
           </h1>
@@ -341,59 +369,61 @@ function Hero() {
         </div>
 
         <p className="mt-8 max-w-3xl text-base leading-relaxed text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] sm:text-lg">
-          Sunesa Football Club develops disciplined, confident and technically
-          gifted footballers through professional coaching, competitive training
-          and a passion for the beautiful game.
+          {hero?.description ??
+  "Sunesa Football Club develops disciplined, confident and technically gifted footballers through professional coaching, competitive training and a passion for the beautiful game."}
         </p>
 
         <div className="mt-12 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
 
           <a
-            href="#trials"
+            href={hero?.primaryButtonLink ?? "#trials"}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-gold px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-primary-foreground shadow-gold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-auto"
           >
-            Join Trials
+            {hero?.primaryButton ?? "Join Trials"}
 
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
 
           <a
-            href="#about"
+            href={hero?.secondaryButtonLink ?? "#about"}
             className="inline-flex w-full items-center justify-center rounded-xl border border-brand-primary/50 bg-brand-background/20 px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-brand-primary backdrop-blur-md transition-all duration-300 hover:bg-brand-primary/10 sm:w-auto"
           >
-            About Us
+            {hero?.secondaryButton ?? "About Us"}
           </a>
 
         </div>
 
         <div className="mt-20 grid w-full max-w-3xl grid-cols-3 gap-6 border-t border-brand-primary/20 pt-10">
 
-          {[
-            {
-              k: "150+",
-              v: "Players",
-            },
-            {
-              k: "14+",
-              v: "Years",
-            },
-            {
-              k: "BDFA",
-              v: "League Club",
-            },
-          ].map((item) => (
-            <div key={item.v} className="text-center">
+         {(
+  hero?.stats ?? [
+    {
+      value: "150+",
+      label: "Players",
+    },
+    {
+      value: "14+",
+      label: "Years",
+    },
+    {
+      value: "BDFA",
+      label: "League Club",
+    },
+  ]
+).map((item) => (
+  <div
+    key={item.label}
+    className="text-center"
+  >
+    <div className="font-display text-3xl text-gradient-gold sm:text-4xl">
+      {item.value}
+    </div>
 
-              <div className="font-display text-3xl text-gradient-gold sm:text-4xl">
-                {item.k}
-              </div>
-
-              <div className="mt-2 text-[11px] uppercase tracking-[0.24em] text-white/70">
-                {item.v}
-              </div>
-
-            </div>
-          ))}
+    <div className="mt-2 text-[11px] uppercase tracking-[0.24em] text-white/70">
+      {item.label}
+    </div>
+  </div>
+))}
 
         </div>
 
@@ -402,15 +432,70 @@ function Hero() {
     </section>
   );
 }
+type AboutContent = {
+  badge?: string;
+  established?: string;
 
-function AboutSection() {
-  const values = [
+  eyebrow?: string;
+  title?: string;
+ subtitle?: string;
+
+  missionTitle?: string;
+  missionDescription?: string;
+
+  visionTitle?: string;
+  visionDescription?: string;
+
+  story?: string;
+
+  valuesTitle?: string;
+  values?: string[];
+
+  whyEyebrow?: string;
+  whyTitle?: string;
+  whySubtitle?: string;
+
+  cards?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  }[];
+};
+function AboutSection({
+  about,
+}: {
+  about?: AboutContent;
+}) {
+  const values =
+  about?.values ?? [
     "Discipline",
     "Development",
     "Respect",
     "Teamwork",
     "Commitment",
     "Excellence",
+  ];
+
+const whyCards =
+  about?.cards ?? [
+    {
+      eyebrow: "Discipline",
+      title: "Character First",
+      description:
+        "Structured training develops discipline, responsibility and confidence on and off the pitch.",
+    },
+    {
+      eyebrow: "Development",
+      title: "Train With Purpose",
+      description:
+        "Professional coaching and competitive football accelerate technical growth and football intelligence.",
+    },
+    {
+      eyebrow: "Opportunity",
+      title: "Pathway To Competition",
+      description:
+        "A clear progression from academy football to senior league competition provides players with meaningful opportunities to grow.",
+    },
   ];
 
   return (
@@ -439,7 +524,7 @@ function AboutSection() {
           {/* Trust Badge */}
 
           <div className="absolute bottom-6 left-6">
-            <TrustBadge />
+            <TrustBadge badge={about?.badge} />
           </div>
 
           {/* EST Card */}
@@ -460,7 +545,7 @@ function AboutSection() {
   >
 
     <div className="font-display text-lg tracking-[0.08em] text-brand-primary sm:text-2xl">
-      EST. 2012
+      {about?.established ?? "EST. 2012"}
     </div>
 
   </div>
@@ -473,12 +558,17 @@ function AboutSection() {
 
         <div>
 
-          <SectionHeading
-            eyebrow="About Sunesa FC"
-            title={"Building Bangalore's |Next Generation| of Footballers"}
-            subtitle="Sunesa Football Club was founded in 2012 with one mission — to identify raw talent from the grassroots and shape it into disciplined, match-ready players. From local grounds to BDFA 'C' Division, we provide structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore."
-          />
-
+         <SectionHeading
+  eyebrow={about?.eyebrow ?? "About Sunesa FC"}
+  title={
+    about?.title ??
+    "Building Bangalore's |Next Generation| of Footballers"
+  }
+  subtitle={
+    about?.subtitle ??
+    "Sunesa Football Club was founded in 2012 with one mission — to identify raw talent from the grassroots and shape it into disciplined, match-ready players. From local grounds to BDFA 'C' Division, we provide structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore."
+  }
+/>
         </div>
 
       </div>
@@ -494,14 +584,12 @@ function AboutSection() {
             <div className="glass-card rounded-2xl p-6">
 
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                Mission
+                {about?.missionTitle ?? "Mission"}
               </div>
 
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                To identify grassroots talent and develop disciplined,
-                technically skilled footballers through structured coaching,
-                competitive match experience and a culture of continuous
-                improvement.
+                {about?.missionDescription ??
+  "To identify grassroots talent and develop disciplined, technically skilled footballers through structured coaching, competitive match experience and a culture of continuous improvement."}
               </p>
 
             </div>
@@ -509,13 +597,12 @@ function AboutSection() {
             <div className="glass-card rounded-2xl p-6">
 
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                Vision
+                {about?.visionTitle ?? "Vision"}
               </div>
 
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                To become one of Bangalore's leading football clubs by creating
-                opportunities for players to progress from grassroots football
-                to senior competitive league football.
+                {about?.visionDescription ??
+  "To become one of Bangalore's leading football clubs by creating opportunities for players to progress from grassroots football to senior competitive league football."}
               </p>
 
             </div>
@@ -527,11 +614,8 @@ function AboutSection() {
           <div className="mt-10 glass-card rounded-2xl p-8">
 
             <p className="text-base leading-8 text-muted-foreground">
-              From local grounds to the BDFA C Division, Sunesa Football Club
-              provides structured coaching, competitive exposure and a clear
-              pathway for young footballers in Bangalore. We believe success is
-              built on consistency, discipline and creating an environment where
-              every player is challenged to improve.
+              {about?.story ??
+  "From local grounds to the BDFA C Division, Sunesa Football Club provides structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore. We believe success is built on consistency, discipline and creating an environment where every player is challenged to improve."}
             </p>
 
           </div>
@@ -541,12 +625,12 @@ function AboutSection() {
           <div className="mt-12">
 
             <div className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-              Core Values
+              {about?.valuesTitle ?? "Core Values"}
             </div>
 
             <ul className="flex flex-wrap gap-3">
 
-              {values.map((value) => (
+              {values.map((value: string) => (
                 <li
                   key={value}
                   className="rounded-full border border-border bg-secondary px-5 py-2 text-xs uppercase tracking-wide text-muted-foreground transition-all hover:border-brand-primary hover:text-brand-primary"
@@ -564,67 +648,38 @@ function AboutSection() {
           <div className="mt-20">
 
             <SectionHeading
-              eyebrow="Why Sunesa FC"
-              title={"Why Players Choose |sunesa|"}
-              subtitle="We believe great footballers are built through consistent training, competitive experience and a culture that values character just as much as talent."
-              align="center"
-            />
+  eyebrow={about?.whyEyebrow ?? "Why Sunesa FC"}
+  title={
+    about?.whyTitle ??
+    "Why Players Choose |sunesa|"
+  }
+  subtitle={
+    about?.whySubtitle ??
+    "We believe great footballers are built through consistent training, competitive experience and a culture that values character just as much as talent."
+  }
+  align="center"
+/>
 
             <div className="mt-10 grid gap-6 md:grid-cols-3">
+  {whyCards.map((card) => (
+    <div
+      key={card.title}
+      className="glass-card rounded-2xl p-6"
+    >
+      <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
+        {card.eyebrow}
+      </div>
 
-              <div className="glass-card rounded-2xl p-6">
+      <h3 className="font-display text-2xl">
+        {card.title}
+      </h3>
 
-                <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                  Discipline
-                </div>
-
-                <h3 className="font-display text-2xl">
-                  Character First
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Structured training develops discipline, responsibility and
-                  confidence on and off the pitch.
-                </p>
-
-              </div>
-
-              <div className="glass-card rounded-2xl p-6">
-
-                <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                  Development
-                </div>
-
-                <h3 className="font-display text-2xl">
-                  Train With Purpose
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Professional coaching and competitive football accelerate
-                  technical growth and football intelligence.
-                </p>
-
-              </div>
-
-              <div className="glass-card rounded-2xl p-6">
-
-                <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                  Opportunity
-                </div>
-
-                <h3 className="font-display text-2xl">
-                  Pathway To Competition
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  A clear progression from academy football to senior league
-                  competition provides players with meaningful opportunities to
-                  grow.
-                </p>
-
-              </div>
-
-            </div>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        {card.description}
+      </p>
+    </div>
+  ))}
+</div>
 
           </div>
 
@@ -1203,8 +1258,49 @@ const SOCIALS = [
     href: "#",
   },
 ];
+type ContactContent = {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
 
-function ContactSection() {
+  trainingGroundLabel?: string;
+  trainingGround?: string;
+
+  phoneLabel?: string;
+  phone?: string;
+
+  whatsappLabel?: string;
+  whatsapp?: string;
+
+  emailLabel?: string;
+  email?: string;
+
+  scheduleLabel?: string;
+  schedule?: string;
+
+  followTitle?: string;
+
+  visitTitle?: string;
+  visitDescription?: string;
+
+  primaryButton?: string;
+  primaryButtonLink?: string;
+
+  directionsButton?: string;
+  directionsLink?: string;
+
+  mapTitle?: string;
+  mapDescription?: string;
+
+  instagram?: string;
+  facebook?: string;
+  youtube?: string;
+};
+function ContactSection({
+  contact,
+}: {
+  contact?: Record<string, any>;
+}) {
   return (
     <section
       id="contact"
@@ -1213,9 +1309,15 @@ function ContactSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
         <SectionHeading
-          eyebrow="Contact"
-          title={"Visit |sunesa|"}
-          subtitle="Whether you're looking to join our academy, support the club or simply learn more, we'd love to hear from you."
+          eyebrow={contact?.eyebrow ?? "Contact"}
+          title={
+            contact?.title ??
+            "Visit |sunesa|"
+          }
+          subtitle={
+            contact?.subtitle ??
+            "Whether you're looking to join our academy, support the club or simply learn more, we'd love to hear from you."
+          }
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.25fr]">
@@ -1224,45 +1326,64 @@ function ContactSection() {
 
           <div className="space-y-5">
 
-            {CONTACT_INFO.map((item) => (
-              <div
-                key={item.label}
-                className="flex items-start gap-4 rounded-2xl border border-border bg-brand-background p-5 transition-colors hover:border-brand-primary/40"
-              >
-                <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand-primary/10 text-brand-primary">
-                  <item.icon className="h-5 w-5" />
-                </div>
-
-                <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                    {item.label}
+            {(contact?.info ??
+              CONTACT_INFO).map(
+              (
+                item: {
+                  icon: any;
+                  label: string;
+                  value: string;
+                }
+              ) => (
+                <div
+                  key={item.label}
+                  className="flex items-start gap-4 rounded-2xl border border-border bg-brand-background p-5 transition-colors hover:border-brand-primary/40"
+                >
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand-primary/10 text-brand-primary">
+                    <item.icon className="h-5 w-5" />
                   </div>
 
-                  <div className="mt-1 text-sm text-foreground">
-                    {item.value}
+                  <div>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                      {item.label}
+                    </div>
+
+                    <div className="mt-1 text-sm text-foreground">
+                      {item.value}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
 
             <div className="glass-card rounded-2xl p-6">
 
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary">
-                Follow Sunesa FC
+                {contact?.socialTitle ??
+                  "Follow Sunesa FC"}
               </div>
 
               <div className="mt-5 flex gap-3">
 
-                {SOCIALS.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-brand-background transition-all hover:border-brand-primary hover:text-brand-primary"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="h-5 w-5" />
-                  </a>
-                ))}
+                {(contact?.socials ??
+                  SOCIALS).map(
+                  (
+                    social: {
+                      icon: any;
+                      label: string;
+                      href: string;
+                    }
+                  ) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-brand-background transition-all hover:border-brand-primary hover:text-brand-primary"
+                      aria-label={social.label}
+                    >
+                      <social.icon className="h-5 w-5" />
+                    </a>
+                  )
+                )}
 
               </div>
 
@@ -1277,29 +1398,37 @@ function ContactSection() {
             <div className="glass-card rounded-2xl p-6">
 
               <h3 className="font-display text-2xl text-foreground">
-                Ready to Visit?
+                {contact?.visitTitle ??
+                  "Ready to Visit?"}
               </h3>
 
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Come experience Sunesa Football Club firsthand. Watch a training
-                session, meet our coaches and discover how we develop the next
-                generation of footballers.
+                {contact?.visitDescription ??
+                  "Come experience Sunesa Football Club firsthand. Watch a training session, meet our coaches and discover how we develop the next generation of footballers."}
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
 
                 <a
-                  href="#trials"
+                  href={
+                    contact?.primaryButtonLink ??
+                    "#trials"
+                  }
                   className="inline-flex items-center justify-center rounded-lg bg-gradient-gold px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-primary-foreground shadow-gold"
                 >
-                  Join Trials
+                  {contact?.primaryButton ??
+                    "Join Trials"}
                 </a>
 
                 <a
-                  href="#"
+                  href={
+                    contact?.secondaryButtonLink ??
+                    "#"
+                  }
                   className="inline-flex items-center justify-center rounded-lg border border-brand-primary px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-brand-primary transition-colors hover:bg-brand-primary/10"
                 >
-                  Get Directions
+                  {contact?.secondaryButton ??
+                    "Get Directions"}
                 </a>
 
               </div>
@@ -1308,8 +1437,6 @@ function ContactSection() {
 
             <div className="overflow-hidden rounded-2xl border border-border">
 
-              {/* Replace with Google Maps iframe later */}
-
               <div className="grid min-h-[360px] place-items-center bg-[radial-gradient(ellipse_at_center,var(--surface)_0%,var(--charcoal)_75%)]">
 
                 <div className="text-center">
@@ -1317,13 +1444,13 @@ function ContactSection() {
                   <MapPin className="mx-auto h-10 w-10 text-brand-primary" />
 
                   <h3 className="mt-4 font-display text-2xl">
-                    Google Maps
+                    {contact?.mapTitle ??
+                      "Google Maps"}
                   </h3>
 
                   <p className="mt-2 max-w-xs text-sm text-muted-foreground">
-                    This area will display the club's embedded Google Map.
-                    The map URL will later be managed directly from the
-                    admin dashboard.
+                    {contact?.mapDescription ??
+                      "This area will display the club's embedded Google Map. The map URL will later be managed directly from the admin dashboard."}
                   </p>
 
                 </div>
@@ -1480,6 +1607,23 @@ function Footer() {
 /* ---------- Root ---------- */
 
 export function SunesaSite() {
+
+  const { pages, loading } = usePages();
+
+  const hero = pages.find(
+    (p) => p.section === "hero"
+  )?.content;
+
+  const about = pages.find(
+  (p) => p.section === "about"
+  )?.content as AboutContent | undefined; 
+
+  const contact =
+  pages.find(
+    (p) => p.section === "contact"
+  )?.content;
+
+
   return (
     <div className="scroll-smooth bg-brand-background text-foreground antialiased">
 
@@ -1487,9 +1631,9 @@ export function SunesaSite() {
 
       <main>
 
-        <Hero />
+       <Hero hero={hero} />
 
-        <AboutSection />
+        <AboutSection about={about} />
 
         <GallerySection />
 
@@ -1497,7 +1641,7 @@ export function SunesaSite() {
 
         <TrialsSection />
 
-        <ContactSection />
+        <ContactSection contact={contact} />
 
       </main>
 
