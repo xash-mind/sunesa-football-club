@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import HeroEditor from "./editors/HeroEditor";
 import GalleryEditor from "./editors/GalleryEditor";
 import AboutEditor from "./editors/AboutEditor";
+import ContactEditor from "./editors/ContactEditor";
+import NewsPageEditor from "./editors/NewsPageEditor";
+import FooterEditor from "./editors/FooterEditor";
+import TrialsEditor from "./editors/TrialsEditor";
 
 import {
   getPages,
@@ -47,7 +51,24 @@ export default function PagesEditor() {
   return (
     <div className="space-y-8">
 
-      {pages.map((page) => {
+     {[...pages]
+  .sort((a, b) => {
+    const order: Page["section"][] = [
+      "hero",
+      "about",
+      "gallery",
+      "news",
+      "trials",
+      "contact",
+      "footer",
+    ];
+
+    return (
+      order.indexOf(a.section) -
+      order.indexOf(b.section)
+    );
+  })
+  .map((page) => {
 
         if (page.section === "hero") {
           return (
@@ -84,6 +105,52 @@ if (page.section === "about") {
     />
   );
 }
+if (page.section === "contact") {
+    return (
+      <ContactEditor
+        key={page.section}
+        page={page}
+        onSave={(content) =>
+          savePage(page.section, content)
+        }
+      />
+    );
+  }
+  if (page.section === "news") {
+  return (
+    <NewsPageEditor
+      key={page.section}
+      page={page}
+      onSave={(content) =>
+        savePage(page.section, content)
+      }
+    />
+  );
+}
+if (page.section === "footer") {
+  return (
+    <FooterEditor
+      key={page.section}
+      page={page}
+      onSave={(content) =>
+        savePage(page.section, content)
+      }
+    />
+  );
+}
+if (page.section === "trials") {
+  return (
+    <TrialsEditor
+      key={page.section}
+      page={page}
+      onSave={(content) =>
+        savePage(page.section, content)
+      }
+    />
+  );
+}
+
+  
         return (
           <div
             key={page.section}

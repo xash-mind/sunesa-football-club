@@ -190,17 +190,14 @@ export default function AboutEditor({
     />
 
   </EditorSection>
-    <div className="flex justify-end">
+  
+   <button
+        onClick={save}
+        className="rounded-xl bg-gradient-gold px-6 py-3 font-semibold"
+      >
+        {saving ? "Saving..." : "Save About"}
+      </button>
 
-    <button
-      onClick={save}
-      disabled={saving}
-      className="rounded-xl bg-gradient-gold px-6 py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-60"
-    >
-      {saving ? "Saving..." : "Save About"}
-    </button>
-
-  </div>
 
 </div>
   );

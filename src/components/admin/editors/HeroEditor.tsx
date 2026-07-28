@@ -126,17 +126,15 @@ export default function HeroEditor({
 
     </EditorSection>
 
-    <div className="flex justify-end">
-
-      <button
+   
+  <button
         onClick={save}
-        className="rounded-xl bg-gradient-gold px-8 py-3 font-semibold"
+        className="rounded-xl bg-gradient-gold px-6 py-3 font-semibold"
       >
         {saving ? "Saving..." : "Save Hero"}
       </button>
+</div>
 
-    </div>
-
-  </div>
+  
 );
 }
