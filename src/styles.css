@@ -335,45 +335,50 @@
 .ProseMirror em {
   font-style: italic;
 }
-/* Horizontal Scrollbar */
+/* ========================================
+   Premium Sunesa Scrollbar
+======================================== */
 
 .news-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(148, 30, 50, 0.7) transparent;
+  scrollbar-color: rgba(196, 155, 80, 0.95) rgba(255,255,255,0.05);
 }
 
+/* Chrome / Edge / Brave */
+
 .news-scroll::-webkit-scrollbar {
-  height: 8px;
+  width: 12px;
+  height: 12px;
 }
 
 .news-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.news-scroll::-webkit-scrollbar-thumb {
-  background: rgba(148, 30, 50, 0.7);
+  background: rgba(255,255,255,0.05);
   border-radius: 999px;
 }
 
+.news-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    90deg,
+    rgba(196,155,80,1),
+    rgba(148,30,50,0.95)
+  );
+  border-radius: 999px;
+  border: 2px solid rgba(20,20,20,0.35);
+  transition: all 0.25s ease;
+}
+
 .news-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(196, 155, 80, 0.9);
-}
-/* ---------- News Scroll Hint ---------- */
+  background: linear-gradient(
+    90deg,
+    rgba(235,195,100,1),
+    rgba(180,45,65,1)
+  );
 
-.scroll-hint-arrow,
-.scroll-hint-arrow-right {
-  display: inline-block;
-  animation-duration: 1.4s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
+  box-shadow: 0 0 12px rgba(196,155,80,0.45);
 }
 
-.scroll-hint-arrow {
-  animation-name: hintLeft;
-}
-
-.scroll-hint-arrow-right {
-  animation-name: hintRight;
+.news-scroll::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 @keyframes hintLeft {

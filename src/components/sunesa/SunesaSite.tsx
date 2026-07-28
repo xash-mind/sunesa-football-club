@@ -726,8 +726,8 @@ function GallerySection() {
 
         ) : (
 
-          <div className="mt-12 grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-
+          <div className="news-scroll mt-12 max-h-[70vh] overflow-y-auto pr-4">
+  <div className="grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {filtered.map((g, i) => (
 
               <figure
@@ -763,6 +763,7 @@ function GallerySection() {
 
             ))}
 
+          </div>
           </div>
 
         )}
@@ -899,7 +900,7 @@ function NewsSection() {
                 </p>
 
                 <a
-                  href={`/admin/news/${post.slug}`}
+                  href={`/news/${post.slug}`}
                   className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary transition-colors hover:text-brand-primary-soft"
                 >
                   Read Update
@@ -945,7 +946,7 @@ function NewsSection() {
                 </p>
 
                 <a
-                  href={`/admin/news/${post.slug}`}
+                  href={`/news/${post.slug}`}
                   className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary transition-colors hover:text-brand-primary-soft"
                 >
                   Read Update
