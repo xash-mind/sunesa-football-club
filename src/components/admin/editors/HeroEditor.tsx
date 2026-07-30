@@ -60,25 +60,25 @@ export default function HeroEditor({
 
       <Field
         label="Heading Line 1"
-        value={hero.heading1 ?? ""}
+        value={hero.heading1 || "One Club."}
         onChange={(v) => update("heading1", v)}
       />
 
       <Field
         label="Heading Line 2"
-        value={hero.heading2 ?? ""}
+        value={hero.heading2 || "One Passion."}
         onChange={(v) => update("heading2", v)}
       />
 
       <Field
         label="Heading Line 3"
-        value={hero.heading3 ?? ""}
+        value={hero.heading3 || "Endless Possibilities."}
         onChange={(v) => update("heading3", v)}
       />
 
       <TextArea
         label="Description"
-        value={hero.description ?? ""}
+        value={hero.description || "Together, We Take Talent From The Grassroots To The Highest Level."}
         onChange={(v) => update("description", v)}
       />
 
@@ -91,25 +91,25 @@ export default function HeroEditor({
 
       <Field
         label="Primary Button"
-        value={hero.primaryButton ?? ""}
+        value={hero.primaryButton || "Join Trials"}
         onChange={(v) => update("primaryButton", v)}
       />
 
       <Field
         label="Primary Button Link"
-        value={hero.primaryButtonLink ?? ""}
+        value={hero.primaryButtonLink || "#trials"}
         onChange={(v) => update("primaryButtonLink", v)}
       />
 
       <Field
         label="Secondary Button"
-        value={hero.secondaryButton ?? ""}
+        value={hero.secondaryButton || "About Us"}
         onChange={(v) => update("secondaryButton", v)}
       />
 
       <Field
         label="Secondary Button Link"
-        value={hero.secondaryButtonLink ?? ""}
+        value={hero.secondaryButtonLink || "#about"}
         onChange={(v) => update("secondaryButtonLink", v)}
       />
 

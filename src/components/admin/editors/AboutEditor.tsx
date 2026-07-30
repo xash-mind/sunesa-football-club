@@ -55,19 +55,19 @@ export default function AboutEditor({
 
     <Field
       label="Eyebrow"
-      value={about.eyebrow ?? ""}
+      value={about.eyebrow || "About Sunesa Football Club"}
       onChange={(v) => update("eyebrow", v)}
     />
 
     <Field
       label="Title"
-      value={about.title ?? ""}
+      value={about.title || "Building Bangalore's |Next Generation| of Footballers."}
       onChange={(v) => update("title", v)}
     />
 
     <TextArea
       label="Subtitle"
-      value={about.subtitle ?? ""}
+      value={about.subtitle || ""}
       onChange={(v) => update("subtitle", v)}
     />
 

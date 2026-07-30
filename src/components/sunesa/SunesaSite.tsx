@@ -1749,27 +1749,27 @@ export function SunesaSite() {
   if (!loading) {
     const timer = setTimeout(() => {
       setShowLoader(false);
-    }, 5000); // 2.5 seconds
+    }, 1800); // 2.5 seconds
 
     return () => clearTimeout(timer);
   }
 }, [loading]);
 
 if (loading || showLoader) {
+ 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-brand-background">
-     <div className="logo-container mb-7 h-28 w-28 rounded-full">
+  <div className="flex min-h-screen flex-col items-center justify-center bg-brand-background">
+    <div className="coin-loader mb-7">
   <img
     src={Logo}
     alt="Sunesa Football Club"
-    className="h-full w-full rounded-full object-cover animate-logo-flip"
+    className="logo-image"
   />
 </div>
-      <div className="brand-font animate-gold-shimmer text-2xl tracking-[0.08em] text-center">
-        sunesa football club
-      </div>
-    </div>
-  );
+  </div>
+);
+     
+    
 }
 
   return (

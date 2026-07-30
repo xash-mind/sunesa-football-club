@@ -49,7 +49,7 @@ export default function NewsPageEditor({
       </div>
 
 
-      <EditorSection
+       <EditorSection
         title="Header"
         description="Controls the title and introduction text."
       >
@@ -75,7 +75,7 @@ export default function NewsPageEditor({
       </EditorSection>
 
 
-      <EditorSection
+       {/* <EditorSection
         title="News Display"
         description="Controls how the news section appears."
       >
@@ -124,7 +124,7 @@ export default function NewsPageEditor({
           onChange={(v) => update("featuredButton", v)}
         />
 
-      </EditorSection>
+      </EditorSection> */}
 
 
       <button

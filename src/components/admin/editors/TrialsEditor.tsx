@@ -52,7 +52,7 @@ export default function TrialsEditor({
       <EditorSection
         title="Header"
         description="Main trials section heading content."
-      >
+       >
 
         <Field
           label="Eyebrow"
@@ -89,7 +89,7 @@ export default function TrialsEditor({
   onChange={(v) => update("point3", v)}
 />
 
-      </EditorSection>
+     {/* </EditorSection>
 
 
       <EditorSection
@@ -162,8 +162,9 @@ export default function TrialsEditor({
           value={trials.buttonLink ?? ""}
           onChange={(v) => update("buttonLink", v)}
         />
+        */ }
 
-      </EditorSection>
+      </EditorSection> 
 
 
       <button
