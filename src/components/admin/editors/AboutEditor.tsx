@@ -110,42 +110,67 @@ export default function AboutEditor({
 
   </EditorSection>
     <EditorSection
-    title="Core Values"
-    description="Enter one value per line."
-  >
+  title="Core Values"
+  description="One value per line."
+>
 
-    <TextArea
-      label="Values"
-      value={(about.values ?? []).join("\n")}
-      onChange={(v) =>
-        update(
-          "values",
-          v
-            .split("\n")
-            .map((x: string) => x.trim())
-            .filter(Boolean)
-        )
-      }
-    />
+  <Field
+    label="Values Title"
+    value={about.valuesTitle ?? ""}
+    onChange={(v) => update("valuesTitle", v)}
+  />
 
-  </EditorSection>
+  <TextArea
+    label="Values"
+    value={(about.values ?? []).join("\n")}
+    onChange={(v) =>
+      update(
+        "values",
+        v
+          .split("\n")
+          .map((x: string) => x.trim())
+          .filter(Boolean)
+      )
+    }
+  />
+
+</EditorSection>
+
 
   <EditorSection
-    title="Why Choose Sunesa"
-    description="These three cards appear at the bottom of the About section."
-  >
+  title="Why Choose Sunesa"
+  description="These three cards appear at the bottom of the About section."
+>
 
-    <Field
-      label="Card 1 Label"
-      value={about.card1Label ?? ""}
-      onChange={(v) => update("card1Label", v)}
-    />
+  <Field
+    label="Section Eyebrow"
+    value={about.whyEyebrow ?? ""}
+    onChange={(v) => update("whyEyebrow", v)}
+  />
 
-    <Field
-      label="Card 1 Title"
-      value={about.card1Title ?? ""}
-      onChange={(v) => update("card1Title", v)}
-    />
+  <Field
+    label="Section Title"
+    value={about.whyTitle ?? ""}
+    onChange={(v) => update("whyTitle", v)}
+  />
+
+  <TextArea
+    label="Section Description"
+    value={about.whySubtitle ?? ""}
+    onChange={(v) => update("whySubtitle", v)}
+  />
+
+  <Field
+    label="Card 1 Eyebrow"
+    value={about.card1Eyebrow ?? ""}
+    onChange={(v) => update("card1Eyebrow", v)}
+  />
+
+  <Field
+    label="Card 1 Title"
+    value={about.card1Title ?? ""}
+    onChange={(v) => update("card1Title", v)}
+  />
 
     <TextArea
       label="Card 1 Description"
@@ -153,11 +178,11 @@ export default function AboutEditor({
       onChange={(v) => update("card1Description", v)}
     />
 
-    <Field
-      label="Card 2 Label"
-      value={about.card2Label ?? ""}
-      onChange={(v) => update("card2Label", v)}
-    />
+   <Field
+  label="Card 2 Eyebrow"
+  value={about.card2Eyebrow ?? ""}
+  onChange={(v) => update("card2Eyebrow", v)}
+/>
 
     <Field
       label="Card 2 Title"
@@ -172,10 +197,10 @@ export default function AboutEditor({
     />
 
     <Field
-      label="Card 3 Label"
-      value={about.card3Label ?? ""}
-      onChange={(v) => update("card3Label", v)}
-    />
+  label="Card 3 Eyebrow"
+  value={about.card3Eyebrow ?? ""}
+  onChange={(v) => update("card3Eyebrow", v)}
+/>
 
     <Field
       label="Card 3 Title"

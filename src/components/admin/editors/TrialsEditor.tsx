@@ -71,6 +71,23 @@ export default function TrialsEditor({
           value={trials.subtitle ?? ""}
           onChange={(v) => update("subtitle", v)}
         />
+        <Field
+  label="Point 1"
+  value={trials.point1 ?? ""}
+  onChange={(v) => update("point1", v)}
+/>
+
+<Field
+  label="Point 2"
+  value={trials.point2 ?? ""}
+  onChange={(v) => update("point2", v)}
+/>
+
+<Field
+  label="Point 3"
+  value={trials.point3 ?? ""}
+  onChange={(v) => update("point3", v)}
+/>
 
       </EditorSection>
 

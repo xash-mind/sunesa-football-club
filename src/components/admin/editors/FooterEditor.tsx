@@ -54,12 +54,6 @@ export default function FooterEditor({
         description="Main footer branding information."
       >
 
-        <Field
-          label="Club Name"
-          value={footer.clubName ?? ""}
-          onChange={(v) => update("clubName", v)}
-        />
-
         <TextArea
           label="Description"
           value={footer.description ?? ""}
@@ -71,37 +65,13 @@ export default function FooterEditor({
           value={footer.copyright ?? ""}
           onChange={(v) => update("copyright", v)}
         />
-
-      </EditorSection>
-
-
-      <EditorSection
-        title="Navigation Links"
-        description="Footer quick links section."
-      >
-
         <Field
-          label="Quick Links Title"
-          value={footer.quickLinksTitle ?? ""}
-          onChange={(v) => update("quickLinksTitle", v)}
-        />
-
-        <TextArea
-          label="Quick Links"
-          value={(footer.quickLinks ?? []).join("\n")}
-          onChange={(v) =>
-            update(
-              "quickLinks",
-              v
-                .split("\n")
-                .map((x: string) => x.trim())
-                .filter(Boolean)
-            )
-          }
+        label="Footer Tagline"
+        value={footer.tagline ?? ""}
+        onChange={(v) => update("tagline", v)}
         />
 
       </EditorSection>
-
 
       <EditorSection
         title="Contact Details"
@@ -124,6 +94,11 @@ export default function FooterEditor({
           label="Address"
           value={footer.address ?? ""}
           onChange={(v) => update("address", v)}
+        />
+        <Field
+        label="Schedule"
+        value={footer.schedule ?? ""}
+        onChange={(v) => update("schedule", v)}
         />
 
       </EditorSection>

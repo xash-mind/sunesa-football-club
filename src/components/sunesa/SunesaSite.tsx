@@ -268,7 +268,7 @@ function TrustBadge({
         <ShieldCheck className="h-5 w-5 text-brand-primary" />
 
         <span className="text-sm font-medium tracking-wide text-foreground">
-          {badge ?? "Official BDFA Club ⭐"}
+          {badge || "Official BDFA Club ⭐"}
         </span>
       </div>
     </div>
@@ -353,15 +353,15 @@ function Hero({
           <h1 className="max-w-5xl font-display text-5xl leading-[0.92] text-white drop-shadow-[0_8px_30px_rgba(0,0,0,0.75)] sm:text-6xl md:text-7xl lg:text-8xl">
 
             <span className="block">
-             {hero?.heading1 ?? "One Club."}
+             {hero?.heading1 || "One Club."}
             </span>
 
             <span className="block text-gradient-gold drop-shadow-[0_0_20px_rgba(214,174,70,0.35)]">
-              {hero?.heading2 ?? "One Passion."}
+              {hero?.heading2 || "One Passion."}
             </span>
 
             <span className="block">
-              {hero?.heading3 ?? "Endless Possibilities."}
+              {hero?.heading3 || "Endless Possibilities."}
             </span>
 
           </h1>
@@ -369,26 +369,26 @@ function Hero({
         </div>
 
         <p className="mt-8 max-w-3xl text-base leading-relaxed text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] sm:text-lg">
-          {hero?.description ??
+          {hero?.description || 
   "Sunesa Football Club develops disciplined, confident and technically gifted footballers through professional coaching, competitive training and a passion for the beautiful game."}
         </p>
 
         <div className="mt-12 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
 
           <a
-            href={hero?.primaryButtonLink ?? "#trials"}
+            href={hero?.primaryButtonLink || "#trials"}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-gold px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-primary-foreground shadow-gold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-auto"
           >
-            {hero?.primaryButton ?? "Join Trials"}
+            {hero?.primaryButton || "Join Trials"}
 
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
 
           <a
-            href={hero?.secondaryButtonLink ?? "#about"}
+            href={hero?.secondaryButtonLink || "#about"}
             className="inline-flex w-full items-center justify-center rounded-xl border border-brand-primary/50 bg-brand-background/20 px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-brand-primary backdrop-blur-md transition-all duration-300 hover:bg-brand-primary/10 sm:w-auto"
           >
-            {hero?.secondaryButton ?? "About Us"}
+            {hero?.secondaryButton || "About Us"}
           </a>
 
         </div>
@@ -433,6 +433,19 @@ function Hero({
   );
 }
 type AboutContent = {
+
+  card1Eyebrow?: string;
+card1Title?: string;
+card1Description?: string;
+
+card2Eyebrow?: string;
+card2Title?: string;
+card2Description?: string;
+
+card3Eyebrow?: string;
+card3Title?: string;
+card3Description?: string;
+
   badge?: string;
   established?: string;
 
@@ -467,7 +480,7 @@ function AboutSection({
   about?: AboutContent;
 }) {
   const values =
-  about?.values ?? [
+  about?.values ||  [
     "Discipline",
     "Development",
     "Respect",
@@ -476,27 +489,29 @@ function AboutSection({
     "Excellence",
   ];
 
-const whyCards =
-  about?.cards ?? [
-    {
-      eyebrow: "Discipline",
-      title: "Character First",
-      description:
-        "Structured training develops discipline, responsibility and confidence on and off the pitch.",
-    },
-    {
-      eyebrow: "Development",
-      title: "Train With Purpose",
-      description:
-        "Professional coaching and competitive football accelerate technical growth and football intelligence.",
-    },
-    {
-      eyebrow: "Opportunity",
-      title: "Pathway To Competition",
-      description:
-        "A clear progression from academy football to senior league competition provides players with meaningful opportunities to grow.",
-    },
-  ];
+const whyCards = [
+  {
+    eyebrow: about?.card1Eyebrow || "Discipline",
+    title: about?.card1Title || "Character First",
+    description:
+      about?.card1Description ||
+      "Structured training develops discipline, responsibility and confidence on and off the pitch.",
+  },
+  {
+    eyebrow: about?.card2Eyebrow || "Development",
+    title: about?.card2Title || "Train With Purpose",
+    description:
+      about?.card2Description ||
+      "Professional coaching and competitive football accelerate technical growth and football intelligence.",
+  },
+  {
+    eyebrow: about?.card3Eyebrow || "Opportunity",
+    title: about?.card3Title || "Pathway To Competition",
+    description:
+      about?.card3Description ||
+      "A clear progression from academy football to senior league competition provides players with meaningful opportunities to grow.",
+  },
+];
 
   return (
   <section id="about" className="relative pt-24 pb-14 sm:pt-32 sm:pb-16">
@@ -545,7 +560,7 @@ const whyCards =
   >
 
     <div className="font-display text-lg tracking-[0.08em] text-brand-primary sm:text-2xl">
-      {about?.established ?? "EST. 2012"}
+      {about?.established || "EST. 2012"}
     </div>
 
   </div>
@@ -559,13 +574,13 @@ const whyCards =
         <div>
 
          <SectionHeading
-  eyebrow={about?.eyebrow ?? "About Sunesa FC"}
+  eyebrow={about?.eyebrow || "About Sunesa FC"}
   title={
-    about?.title ??
+    about?.title || 
     "Building Bangalore's |Next Generation| of Footballers"
   }
   subtitle={
-    about?.subtitle ??
+    about?.subtitle || 
     "Sunesa Football Club was founded in 2012 with one mission — to identify raw talent from the grassroots and shape it into disciplined, match-ready players. From local grounds to BDFA 'C' Division, we provide structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore."
   }
 />
@@ -584,11 +599,11 @@ const whyCards =
             <div className="glass-card rounded-2xl p-6">
 
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                {about?.missionTitle ?? "Mission"}
+                {about?.missionTitle || "Mission"}
               </div>
 
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {about?.missionDescription ??
+                {about?.missionDescription || 
   "To identify grassroots talent and develop disciplined, technically skilled footballers through structured coaching, competitive match experience and a culture of continuous improvement."}
               </p>
 
@@ -597,11 +612,11 @@ const whyCards =
             <div className="glass-card rounded-2xl p-6">
 
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-                {about?.visionTitle ?? "Vision"}
+                {about?.visionTitle || "Vision"}
               </div>
 
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {about?.visionDescription ??
+                {about?.visionDescription || 
   "To become one of Bangalore's leading football clubs by creating opportunities for players to progress from grassroots football to senior competitive league football."}
               </p>
 
@@ -614,7 +629,7 @@ const whyCards =
           <div className="mt-10 glass-card rounded-2xl p-8">
 
             <p className="text-base leading-8 text-muted-foreground">
-              {about?.story ??
+              {about?.story || 
   "From local grounds to the BDFA C Division, Sunesa Football Club provides structured coaching, competitive exposure and a clear pathway for young footballers in Bangalore. We believe success is built on consistency, discipline and creating an environment where every player is challenged to improve."}
             </p>
 
@@ -625,7 +640,7 @@ const whyCards =
           <div className="mt-12">
 
             <div className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-primary">
-              {about?.valuesTitle ?? "Core Values"}
+              {about?.valuesTitle || "Core Values"}
             </div>
 
             <ul className="flex flex-wrap gap-3">
@@ -648,14 +663,12 @@ const whyCards =
           <div className="mt-20">
 
             <SectionHeading
-  eyebrow={about?.whyEyebrow ?? "Why Sunesa FC"}
+  eyebrow={about?.whyEyebrow || "Why Sunesa FC"}
   title={
-    about?.whyTitle ??
-    "Why Players Choose |sunesa|"
+    about?.whyTitle || "Why Players Choose |sunesa|"
   }
   subtitle={
-    about?.whySubtitle ??
-    "We believe great footballers are built through consistent training, competitive experience and a culture that values character just as much as talent."
+    about?.whySubtitle || "We believe great footballers are built through consistent training, competitive experience and a culture that values character just as much as talent."
   }
   align="center"
 />
@@ -704,14 +717,24 @@ const CATS = [
   "Events",
 ] as const;
 
-function GallerySection() {
+type GalleryContent = {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+};
+
+function GallerySection({
+  gallery,
+}: {
+  gallery?: GalleryContent;
+}) {
   const [active, setActive] =
     useState<(typeof CATS)[number]>("All");
 
   const [selectedImage, setSelectedImage] =
     useState<GalleryImage | null>(null);
 
-  const [gallery, setGallery] =
+  const [images, setImages] =
     useState<GalleryImage[]>([]);
 
   const [loading, setLoading] =
@@ -723,7 +746,7 @@ function GallerySection() {
         const data =
           await getAllGalleryImages();
 
-        setGallery(data);
+        setImages(data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -734,7 +757,7 @@ function GallerySection() {
     loadGallery();
   }, []);
 
-  const filtered = gallery.filter(
+  const filtered = images.filter(
     (image) =>
       active === "All" ||
       image.category === active
@@ -750,9 +773,15 @@ function GallerySection() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
 
           <SectionHeading
-            eyebrow="Gallery"
-            title={"Moments From |sunesa|"}
-            subtitle="Explore Sunesa's journey through training sessions, matchdays, team moments and memorable events since 2012."
+            eyebrow={gallery?.eyebrow || "Gallery"}
+            title={
+              gallery?.title ||
+              "Moments From |sunesa|"
+            }
+            subtitle={
+              gallery?.subtitle ||
+              "Explore Sunesa's journey through training sessions, matchdays, team moments and memorable events since 2012."
+            }
           />
 
           <div className="flex flex-wrap gap-2">
@@ -782,43 +811,44 @@ function GallerySection() {
         ) : (
 
           <div className="news-scroll mt-12 max-h-[70vh] overflow-y-auto pr-4">
-  <div className="grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {filtered.map((g, i) => (
+            <div className="grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
 
-              <figure
-                key={g.id}
-                onClick={() => setSelectedImage(g)}
-                className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-border transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary hover:shadow-gold ${
-                  i % 7 === 0 ? "row-span-2" : ""
-                } ${
-                  i % 11 === 0 ? "col-span-2" : ""
-                }`}
-              >
+              {filtered.map((g, i) => (
 
-                <img
-                  src={g.image_url}
-                  alt={g.title ?? g.category}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                <figure
+                  key={g.id}
+                  onClick={() => setSelectedImage(g)}
+                  className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-border transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary hover:shadow-gold ${
+                    i % 7 === 0 ? "row-span-2" : ""
+                  } ${
+                    i % 11 === 0 ? "col-span-2" : ""
+                  }`}
+                >
 
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
+                  <img
+                    src={g.image_url}
+                    alt={g.title ?? g.category}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
-                  <span className="text-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    🔍
-                  </span>
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-background via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-90" />
 
-                <figcaption className="absolute bottom-4 left-4 rounded-full bg-brand-background/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-primary backdrop-blur">
-                  {g.category}
-                </figcaption>
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
+                    <span className="text-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      🔍
+                    </span>
+                  </div>
 
-              </figure>
+                  <figcaption className="absolute bottom-4 left-4 rounded-full bg-brand-background/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-primary backdrop-blur">
+                    {g.category}
+                  </figcaption>
 
-            ))}
+                </figure>
 
-          </div>
+              ))}
+
+            </div>
           </div>
 
         )}
@@ -868,7 +898,11 @@ function GallerySection() {
   );
 }
 /* ---------- From The Ground ---------- */
-function NewsSection() {
+function NewsSection({
+  news,
+}: {
+  news?: Record<string, any>;
+}) {
 
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -908,11 +942,14 @@ function NewsSection() {
     className="relative bg-brand-surface/40 py-24 sm:py-32"
   >
     <div className="mx-auto max-w-7xl px-4 sm:px-6">
-      <SectionHeading
-        eyebrow="From The Ground"
-        title={"Latest From |sunesa|"}
-        subtitle="Stay updated with match results, trial announcements, training schedules and everything happening around the club."
-      />
+     <SectionHeading
+  eyebrow={news?.eyebrow || "From The Ground"}
+  title={news?.title || "Latest From |sunesa|"}
+  subtitle={
+    news?.subtitle ||
+    "Stay updated with match results, trial announcements, training schedules and everything happening at Sunesa Football Club."
+  }
+/>
 
       {loading && (
         <p className="mt-10 text-muted-foreground">
@@ -1021,7 +1058,22 @@ function NewsSection() {
 
 /* ---------- Apply For Trials ---------- */
 
-function TrialsSection() {
+type TrialsContent = {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+
+  point1?: string;
+  point2?: string;
+  point3?: string;
+};
+
+
+function TrialsSection({
+  trials,
+}: {
+  trials?: Record<string, any>;
+}) {
   const [submitted, setSubmitted] = useState(false);
 
   // Future CMS values (Supabase)
@@ -1041,27 +1093,35 @@ function TrialsSection() {
           <div>
 
             <SectionHeading
-              eyebrow="Apply For Trials"
-              title={"Your Boots. Your Dream.| Our Club.|"}
-              subtitle="Think you have what it takes? Apply for trials and begin your football journey with Sunesa Football Club."
-            />
-
+              eyebrow={trials?.eyebrow || "Apply For Trials"}
+  title={
+    trials?.title ||
+    "Your Boots. Your Dream.| Our Club.|"
+  }
+  subtitle={
+    trials?.subtitle ||
+    "Think you have what it takes? Apply for trials and begin your football journey with Sunesa Football Club."
+  }
+/>
             <div className="mt-8 space-y-5 text-sm text-muted-foreground">
 
-              <p className="flex items-start gap-3">
-                <ShieldCheck className="mt-0.5 h-4 w-4 text-brand-primary" />
-                Open to aspiring footballers looking to train and compete.
-              </p>
+               <p className="flex items-start gap-3">
+    <ShieldCheck className="mt-0.5 h-4 w-4 text-brand-primary" />
+    {trials?.point1 ||
+      "Open to aspiring footballers looking to train and compete."}
+  </p>
 
-              <p className="flex items-start gap-3">
-                <Users className="mt-0.5 h-4 w-4 text-brand-primary" />
-                Structured coaching with competitive match exposure.
-              </p>
+  <p className="flex items-start gap-3">
+    <Users className="mt-0.5 h-4 w-4 text-brand-primary" />
+    {trials?.point2 ||
+      "Structured coaching with competitive match exposure."}
+  </p>
 
-              <p className="flex items-start gap-3">
-                <Trophy className="mt-0.5 h-4 w-4 text-brand-primary" />
-                Outstanding players progress into competitive Sunesa FC squads.
-              </p>
+  <p className="flex items-start gap-3">
+    <Trophy className="mt-0.5 h-4 w-4 text-brand-primary" />
+    {trials?.point3 ||
+      "Outstanding players progress into competitive Sunesa FC squads."}
+  </p>
 
               <div className="glass-card mt-8 rounded-2xl p-5">
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary">
@@ -1213,34 +1273,33 @@ function TrialsSection() {
 
 /* ---------- Contact ---------- */
 
-const CONTACT_INFO = [
+const CONTACT_INFO = (contact?: ContactContent) => [
   {
     icon: MapPin,
-    label: "Training Ground",
-    value: "Sunesa Football Club, Bangalore",
+    label: contact?.card1Label || "Training Ground",
+    value: contact?.card1Value || "Sunesa Football Club, Bangalore",
   },
   {
     icon: Phone,
-    label: "Phone",
-    value: "+91 XXXXX XXXXX",
+    label: contact?.card2Label || "Phone",
+    value: contact?.card2Value || "+91 XXXXX XXXXX",
   },
   {
     icon: MessageCircle,
-    label: "WhatsApp",
-    value: "+91 XXXXX XXXXX",
+    label: contact?.card3Label || "WhatsApp",
+    value: contact?.card3Value || "+91 XXXXX XXXXX",
   },
   {
     icon: Mail,
-    label: "Email",
-    value: "sunesafc2012@gmail.com",
+    label: contact?.card4Label || "Email",
+    value: contact?.card4Value || "sunesafc2012@gmail.com",
   },
   {
     icon: Clock,
-    label: "Training Schedule",
-    value: "Mon – Fri • 6:00 AM & 5:00 PM",
+    label: contact?.card5Label || "Training Schedule",
+    value: contact?.card5Value || "Mon – Fri • 6:00 AM & 5:00 PM",
   },
 ];
-
 const SOCIALS = [
   {
     icon: Instagram,
@@ -1263,22 +1322,22 @@ type ContactContent = {
   title?: string;
   subtitle?: string;
 
-  trainingGroundLabel?: string;
-  trainingGround?: string;
+  card1Label?: string;
+  card1Value?: string;
 
-  phoneLabel?: string;
-  phone?: string;
+  card2Label?: string;
+  card2Value?: string;
 
-  whatsappLabel?: string;
-  whatsapp?: string;
+  card3Label?: string;
+  card3Value?: string;
 
-  emailLabel?: string;
-  email?: string;
+  card4Label?: string;
+  card4Value?: string;
 
-  scheduleLabel?: string;
-  schedule?: string;
+  card5Label?: string;
+  card5Value?: string;
 
-  followTitle?: string;
+  socialTitle?: string;
 
   visitTitle?: string;
   visitDescription?: string;
@@ -1286,8 +1345,8 @@ type ContactContent = {
   primaryButton?: string;
   primaryButtonLink?: string;
 
-  directionsButton?: string;
-  directionsLink?: string;
+  secondaryButton?: string;
+  secondaryButtonLink?: string;
 
   mapTitle?: string;
   mapDescription?: string;
@@ -1309,13 +1368,13 @@ function ContactSection({
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
         <SectionHeading
-          eyebrow={contact?.eyebrow ?? "Contact"}
+          eyebrow={contact?.eyebrow || "Contact"}
           title={
-            contact?.title ??
+            contact?.title || 
             "Visit |sunesa|"
           }
           subtitle={
-            contact?.subtitle ??
+            contact?.subtitle || 
             "Whether you're looking to join our academy, support the club or simply learn more, we'd love to hear from you."
           }
         />
@@ -1326,15 +1385,14 @@ function ContactSection({
 
           <div className="space-y-5">
 
-            {(contact?.info ??
-              CONTACT_INFO).map(
-              (
-                item: {
-                  icon: any;
-                  label: string;
-                  value: string;
-                }
-              ) => (
+            {CONTACT_INFO(contact).map(
+  (
+    item: {
+      icon: any;
+      label: string;
+      value: string;
+    }
+  ) => (
                 <div
                   key={item.label}
                   className="flex items-start gap-4 rounded-2xl border border-border bg-brand-background p-5 transition-colors hover:border-brand-primary/40"
@@ -1359,31 +1417,41 @@ function ContactSection({
             <div className="glass-card rounded-2xl p-6">
 
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary">
-                {contact?.socialTitle ??
+                {contact?.socialTitle || 
                   "Follow Sunesa FC"}
               </div>
 
-              <div className="mt-5 flex gap-3">
+              <div className="mt-5 flex gap-3">           
 
-                {(contact?.socials ??
-                  SOCIALS).map(
-                  (
-                    social: {
-                      icon: any;
-                      label: string;
-                      href: string;
-                    }
-                  ) => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-brand-background transition-all hover:border-brand-primary hover:text-brand-primary"
-                      aria-label={social.label}
-                    >
-                      <social.icon className="h-5 w-5" />
-                    </a>
-                  )
-                )}
+  {[
+    {
+      icon: Instagram,
+      label: "Instagram",
+      href: contact?.instagram || "#",
+    },
+    {
+      icon: Facebook,
+      label: "Facebook",
+      href: contact?.facebook || "#",
+    },
+    {
+      icon: Youtube,
+      label: "YouTube",
+      href: contact?.youtube || "#",
+    },
+  ].map((social) => (
+    <a
+      key={social.label}
+      href={social.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-brand-background transition-all hover:border-brand-primary hover:text-brand-primary"
+      aria-label={social.label}
+    >
+      <social.icon className="h-5 w-5" />
+    </a>
+  ))}
+
 
               </div>
 
@@ -1398,12 +1466,12 @@ function ContactSection({
             <div className="glass-card rounded-2xl p-6">
 
               <h3 className="font-display text-2xl text-foreground">
-                {contact?.visitTitle ??
+                {contact?.visitTitle || 
                   "Ready to Visit?"}
               </h3>
 
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {contact?.visitDescription ??
+                {contact?.visitDescription || 
                   "Come experience Sunesa Football Club firsthand. Watch a training session, meet our coaches and discover how we develop the next generation of footballers."}
               </p>
 
@@ -1411,23 +1479,23 @@ function ContactSection({
 
                 <a
                   href={
-                    contact?.primaryButtonLink ??
+                    contact?.primaryButtonLink || 
                     "#trials"
                   }
                   className="inline-flex items-center justify-center rounded-lg bg-gradient-gold px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-primary-foreground shadow-gold"
                 >
-                  {contact?.primaryButton ??
+                  {contact?.primaryButton || 
                     "Join Trials"}
                 </a>
 
                 <a
                   href={
-                    contact?.secondaryButtonLink ??
+                    contact?.secondaryButtonLink || 
                     "#"
                   }
                   className="inline-flex items-center justify-center rounded-lg border border-brand-primary px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-brand-primary transition-colors hover:bg-brand-primary/10"
                 >
-                  {contact?.secondaryButton ??
+                  {contact?.secondaryButton || 
                     "Get Directions"}
                 </a>
 
@@ -1437,27 +1505,35 @@ function ContactSection({
 
             <div className="overflow-hidden rounded-2xl border border-border">
 
-              <div className="grid min-h-[360px] place-items-center bg-[radial-gradient(ellipse_at_center,var(--surface)_0%,var(--charcoal)_75%)]">
+  {contact?.mapEmbed ? (
 
-                <div className="text-center">
+    <iframe
+      src={contact.mapEmbed}
+      className="h-[360px] w-full"
+      loading="lazy"
+      allowFullScreen
+      referrerPolicy="no-referrer-when-downgrade"
+    />
 
-                  <MapPin className="mx-auto h-10 w-10 text-brand-primary" />
+  ) : (
 
-                  <h3 className="mt-4 font-display text-2xl">
-                    {contact?.mapTitle ??
-                      "Google Maps"}
-                  </h3>
+    <div className="grid min-h-[360px] place-items-center bg-[radial-gradient(ellipse_at_center,var(--surface)_0%,var(--charcoal)_75%)]">
 
-                  <p className="mt-2 max-w-xs text-sm text-muted-foreground">
-                    {contact?.mapDescription ??
-                      "This area will display the club's embedded Google Map. The map URL will later be managed directly from the admin dashboard."}
-                  </p>
+      <div className="text-center">
 
-                </div>
+        <MapPin className="mx-auto h-10 w-10 text-brand-primary" />
 
-              </div>
+        <p className="mt-4 text-sm text-muted-foreground">
+          No Google Maps embed has been configured yet.
+        </p>
 
-            </div>
+      </div>
+
+    </div>
+
+  )}
+
+</div>
 
           </div>
 
@@ -1470,7 +1546,11 @@ function ContactSection({
 
 /* ---------- Footer ---------- */
 
-function Footer() {
+function Footer({
+  footer,
+}: {
+  footer?: Record<string, any>;
+}) {
   return (
     <footer className="relative border-t border-border bg-brand-background">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
@@ -1492,7 +1572,7 @@ function Footer() {
               <div>
 
                 <div className="brand-font truncate text-sm tracking-[0.08em] text-foreground">
-                 sunesa football club
+                  sunesa football club
                 </div>
 
                 <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -1504,9 +1584,8 @@ function Footer() {
             </div>
 
             <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-              Building Bangalore's next generation of footballers through
-              disciplined coaching, competitive football and professional
-              development.
+              {footer?.description ||
+                "Building Bangalore's next generation of footballers through disciplined coaching, competitive football and professional development."}
             </p>
 
           </div>
@@ -1546,13 +1625,21 @@ function Footer() {
 
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
 
-              <li>Bangalore, Karnataka</li>
+              <li>
+                {footer?.address || "Bangalore, Karnataka"}
+              </li>
 
-              <li>+91 XXXXX XXXXX</li>
+              <li>
+                {footer?.phone || "+91 XXXXX XXXXX"}
+              </li>
 
-              <li>sunesafc2012@gmail.com</li>
+              <li>
+                {footer?.email || "sunesafc2012@gmail.com"}
+              </li>
 
-              <li>Mon – Fri • 6:00 AM & 5:00 PM</li>
+              <li>
+                {footer?.schedule || "Mon – Fri • 6:00 AM & 5:00 PM"}
+              </li>
 
             </ul>
 
@@ -1568,16 +1655,32 @@ function Footer() {
 
             <div className="mt-4 flex gap-3">
 
-              {[Instagram, Facebook, Youtube].map((Icon, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-brand-surface text-muted-foreground transition-all hover:border-brand-primary hover:text-brand-primary"
-                  aria-label="Social Media"
-                >
-                  <Icon className="h-5 w-5" />
-                </a>
-              ))}
+              <a
+                href={footer?.instagram || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-brand-surface text-muted-foreground transition-all hover:border-brand-primary hover:text-brand-primary"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+
+              <a
+                href={footer?.facebook || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-brand-surface text-muted-foreground transition-all hover:border-brand-primary hover:text-brand-primary"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+
+              <a
+                href={footer?.youtube || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-brand-surface text-muted-foreground transition-all hover:border-brand-primary hover:text-brand-primary"
+              >
+                <Youtube className="h-5 w-5" />
+              </a>
 
             </div>
 
@@ -1590,13 +1693,14 @@ function Footer() {
         <div className="mt-6 flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
 
           <div>
-            © {new Date().getFullYear()} Sunesa Football Club. All Rights Reserved.
+            {footer?.copyright ||
+              `© ${new Date().getFullYear()} Sunesa Football Club. All Rights Reserved.`}
           </div>
 
-          <div className="uppercase tracking-[0.22em] text-brand-primary">
-            Grassroots Heart • Professional Standards
-          </div>
-
+         <div className="uppercase tracking-[0.22em] text-brand-primary">
+          {footer?.tagline ||
+          "Grassroots Heart • Professional Standards"}
+        </div>
         </div>
 
       </div>
@@ -1615,14 +1719,58 @@ export function SunesaSite() {
   )?.content;
 
   const about = pages.find(
-  (p) => p.section === "about"
-  )?.content as AboutContent | undefined; 
+    (p) => p.section === "about"
+  )?.content as AboutContent | undefined;
 
-  const contact =
-  pages.find(
+  const gallery = pages.find(
+    (p) => p.section === "gallery"
+  )?.content;
+
+  const news = pages.find(
+    (p) => p.section === "news"
+  )?.content;
+
+  const trials = pages.find(
+    (p) => p.section === "trials"
+  )?.content;
+
+  const contact = pages.find(
     (p) => p.section === "contact"
   )?.content;
 
+  const footer = pages.find(
+    (p) => p.section === "footer"
+  )?.content;
+
+  const [showLoader, setShowLoader] = useState(true);
+
+
+  useEffect(() => {
+  if (!loading) {
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 5000); // 2.5 seconds
+
+    return () => clearTimeout(timer);
+  }
+}, [loading]);
+
+if (loading || showLoader) {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-brand-background">
+     <div className="logo-container mb-7 h-28 w-28 rounded-full">
+  <img
+    src={Logo}
+    alt="Sunesa Football Club"
+    className="h-full w-full rounded-full object-cover animate-logo-flip"
+  />
+</div>
+      <div className="brand-font animate-gold-shimmer text-2xl tracking-[0.08em] text-center">
+        sunesa football club
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="scroll-smooth bg-brand-background text-foreground antialiased">
@@ -1633,19 +1781,20 @@ export function SunesaSite() {
 
        <Hero hero={hero} />
 
-        <AboutSection about={about} />
+<AboutSection about={about} />
 
-        <GallerySection />
+<GallerySection gallery={gallery} />
 
-        <NewsSection />
+<NewsSection news={news} />
 
-        <TrialsSection />
+<TrialsSection trials={trials} />
 
-        <ContactSection contact={contact} />
+<ContactSection contact={contact} />
 
-      </main>
+</main>
 
-      <Footer />
+<Footer footer={footer} />
+
 
     </div>
   );

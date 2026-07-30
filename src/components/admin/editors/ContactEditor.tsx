@@ -50,35 +50,91 @@ export default function ContactEditor({
 
 
       <EditorSection
-        title="Contact Information"
-        description="Details displayed in the contact section."
-      >
+  title="Contact Information"
+  description="Controls the five information cards shown on the left side of the Contact section."
+>
 
-        <Field
-          label="Email"
-          value={contact.email ?? ""}
-          onChange={(v) => update("email", v)}
-        />
+  <Field
+    label="Section Eyebrow"
+    value={contact.eyebrow ?? ""}
+    onChange={(v) => update("eyebrow", v)}
+  />
 
-        <Field
-          label="Phone"
-          value={contact.phone ?? ""}
-          onChange={(v) => update("phone", v)}
-        />
+  <Field
+    label="Section Title"
+    value={contact.title ?? ""}
+    onChange={(v) => update("title", v)}
+  />
 
-        <Field
-          label="Address"
-          value={contact.address ?? ""}
-          onChange={(v) => update("address", v)}
-        />
+  <TextArea
+    label="Section Subtitle"
+    value={contact.subtitle ?? ""}
+    onChange={(v) => update("subtitle", v)}
+  />
 
-        <TextArea
-          label="Description"
-          value={contact.description ?? ""}
-          onChange={(v) => update("description", v)}
-        />
+  <hr className="my-4 border-border" />
 
-      </EditorSection>
+  <Field
+    label="Card 1 Label"
+    value={contact.card1Label ?? ""}
+    onChange={(v) => update("card1Label", v)}
+  />
+
+  <Field
+    label="Card 1 Value"
+    value={contact.card1Value ?? ""}
+    onChange={(v) => update("card1Value", v)}
+  />
+
+  <Field
+    label="Card 2 Label"
+    value={contact.card2Label ?? ""}
+    onChange={(v) => update("card2Label", v)}
+  />
+
+  <Field
+    label="Card 2 Value"
+    value={contact.card2Value ?? ""}
+    onChange={(v) => update("card2Value", v)}
+  />
+
+  <Field
+    label="Card 3 Label"
+    value={contact.card3Label ?? ""}
+    onChange={(v) => update("card3Label", v)}
+  />
+
+  <Field
+    label="Card 3 Value"
+    value={contact.card3Value ?? ""}
+    onChange={(v) => update("card3Value", v)}
+  />
+
+  <Field
+    label="Card 4 Label"
+    value={contact.card4Label ?? ""}
+    onChange={(v) => update("card4Label", v)}
+  />
+
+  <Field
+    label="Card 4 Value"
+    value={contact.card4Value ?? ""}
+    onChange={(v) => update("card4Value", v)}
+  />
+
+  <Field
+    label="Card 5 Label"
+    value={contact.card5Label ?? ""}
+    onChange={(v) => update("card5Label", v)}
+  />
+
+  <Field
+    label="Card 5 Value"
+    value={contact.card5Value ?? ""}
+    onChange={(v) => update("card5Value", v)}
+  />
+
+</EditorSection>
 
 
       <EditorSection
@@ -125,24 +181,18 @@ export default function ContactEditor({
       </EditorSection>
 
 
-      <EditorSection
-        title="Map Section"
-        description="Google Maps placeholder settings."
-      >
+     <EditorSection
+  title="Map Section"
+  description="Paste a Google Maps Embed URL."
+>
 
-        <Field
-          label="Map Title"
-          value={contact.mapTitle ?? ""}
-          onChange={(v) => update("mapTitle", v)}
-        />
+  <Field
+    label="Google Maps Embed URL"
+    value={contact.mapEmbed ?? ""}
+    onChange={(v) => update("mapEmbed", v)}
+  />
 
-        <TextArea
-          label="Map Description"
-          value={contact.mapDescription ?? ""}
-          onChange={(v) => update("mapDescription", v)}
-        />
-
-      </EditorSection>
+</EditorSection>
 
 
       <EditorSection
