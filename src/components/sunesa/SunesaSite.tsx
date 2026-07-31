@@ -16,6 +16,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { usePages } from "@/hooks/usePages";
+import { getForms, type Form } from "@/services/forms";
+import FormRenderer from "@/components/forms/FormRenderer";
 
 import { navigation as siteNavigation } from "@/config/navigation";
 import { getPublishedNews } from "@/services/news";
@@ -1075,10 +1077,33 @@ function TrialsSection({
   trials?: Record<string, any>;
 }) {
   const [submitted, setSubmitted] = useState(false);
+const [trialForms, setTrialForms] = useState<Form[]>([]);
+const [loadingForms, setLoadingForms] = useState(true);
+const [selectedForm, setSelectedForm] = useState<Form | null>(null);
 
-  // Future CMS values (Supabase)
-  const applicationsOpen = true;
+useEffect(() => {
+  async function loadTrialForms() {
+    try {
+      const forms = await getForms();
 
+      setTrialForms(
+        forms.filter(
+          (form) =>
+            form.active &&
+            form.placement === "trials"
+        )
+      );
+    } catch (error) {
+      console.error("Failed to load trial forms:", error);
+    } finally {
+      setLoadingForms(false);
+    }
+  }
+
+  loadTrialForms();
+}, []);
+
+const applicationsOpen = trialForms.length > 0;
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitted(true);
@@ -1156,113 +1181,109 @@ function TrialsSection({
 
           </div>
 
-          <form
-            onSubmit={onSubmit}
-            className="glass-card rounded-3xl p-8"
+         <div className="space-y-5">
+
+   {selectedForm ? (
+  <FormRenderer
+    form={selectedForm}
+    onBack={() => setSelectedForm(null)}
+  />
+) : loadingForms ? (
+  <div className="glass-card rounded-3xl p-8 text-center">
+    <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-brand-primary border-t-transparent" />
+
+    <p className="mt-4 text-sm text-muted-foreground">
+      Loading available trials...
+    </p>
+  </div>
+) : trialForms.length === 0 ? (
+  <div className="glass-card rounded-3xl p-8 text-center">
+    <p className="text-sm text-muted-foreground">
+      Applications are currently closed.
+    </p>
+  </div>
+) : (
+  <div className="space-y-4">
+    {trialForms.map((form) => (
+      <div
+        key={form.id}
+        className="
+          glass-card
+          rounded-3xl
+          p-6
+          transition-all
+          hover:-translate-y-1
+          hover:border-brand-primary/50
+          hover:shadow-gold
+        "
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h3 className="font-display text-2xl">
+              {form.name}
+            </h3>
+
+            {form.description && (
+              <p className="mt-2 text-sm text-muted-foreground">
+                {form.description}
+              </p>
+            )}
+          </div>
+
+          <span
+            className="
+              shrink-0
+              rounded-full
+              bg-green-500/10
+              px-3 py-1
+              text-[10px]
+              font-semibold
+              uppercase
+              tracking-[0.16em]
+              text-green-400
+            "
           >
+            Open
+          </span>
+        </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
+        <button
+          type="button"
+          onClick={() => setSelectedForm(form)}
+          className="
+            mt-6
+            inline-flex
+            w-full
+            items-center
+            justify-center
+            gap-2
+            rounded-xl
+            bg-gradient-gold
+            px-6
+            py-3.5
+            text-sm
+            font-semibold
+            uppercase
+            tracking-[0.18em]
+            text-primary-foreground
+            shadow-gold
+            transition-all
+            hover:-translate-y-0.5
+          "
+        >
+          Apply Now
+          <ArrowRight className="h-4 w-4" />
+        </button>
+      </div>
+    ))}
+  </div>
+)}
 
-              <Field
-                label="Player Name"
-                name="player"
-                placeholder="Full Name"
-              />
 
-              <Field
-                label="Date of Birth"
-                name="dob"
-                type="date"
-              />
+  
+  
 
-              <Field
-                label="Parent / Guardian"
-                name="guardian"
-                placeholder="Full Name"
-              />
-
-              <Field
-                label="Phone Number"
-                name="phone"
-                type="tel"
-                placeholder="+91 XXXXX XXXXX"
-              />
-
-              <Field
-                label="Email"
-                name="email"
-                type="email"
-                placeholder="you@example.com"
-                full
-              />
-
-              <SelectField
-                label="Age Group"
-                name="age"
-                options={[
-                  "Under 10",
-                  "Under 12",
-                  "Under 14",
-                  "Under 16",
-                  "Under 18",
-                ]}
-              />
-
-              <SelectField
-                label="Preferred Training"
-                name="batch"
-                options={[
-                  "Morning",
-                  "Evening",
-                  "Weekend",
-                ]}
-              />
-
-              <Field
-                label="Previous Football Experience"
-                name="experience"
-                placeholder="School Team, Academy, None..."
-                full
-              />
-
-              <div className="sm:col-span-2">
-
-                <label className="mb-2 block text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                  Additional Information
-                </label>
-
-                <textarea
-                  rows={4}
-                  name="notes"
-                  placeholder="Tell us anything you'd like us to know..."
-                  className="w-full rounded-xl border border-border bg-brand-background/60 px-4 py-3 text-sm outline-none transition-colors focus:border-brand-primary"
-                />
-
-              </div>
-
-            </div>
-
-            <button
-              type="submit"
-              disabled={!applicationsOpen}
-              className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] transition-all ${
-                applicationsOpen
-                  ? "bg-gradient-gold text-primary-foreground shadow-gold hover:-translate-y-0.5"
-                  : "cursor-not-allowed bg-secondary text-muted-foreground"
-              }`}
-            >
-              {submitted
-                ? "Application Submitted Successfully"
-                : applicationsOpen
-                ? "Apply For Trials"
-                : "Applications Closed"}
-
-              {applicationsOpen && !submitted && (
-                <ArrowRight className="h-4 w-4" />
-              )}
-            </button>
-
-          </form>
+</div>
 
         </div>
 
