@@ -46,14 +46,14 @@ jobs:
             exit 1
           fi
 
-      - name: Type-check
+      - name: Build
+        run: npm run build
+
+      - name: Type-check generated routes
         run: npm run typecheck
 
       - name: Lint
         run: npm run lint
-
-      - name: Build
-        run: npm run build
 
       - name: Commit refreshed lockfile
         if: github.event_name == 'push'
