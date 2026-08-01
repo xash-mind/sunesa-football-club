@@ -5,7 +5,5 @@ export const siteConfig: SiteConfig = {
     title: "Sunesa Football Club — Firing The Spirit of Football",
     description:
       "Registered with Bangalore District Football Association since 2012.",
-    author: "Sunesa Football Club",
-    ogImage: "/src/assets/logo/Logo.jpg",
   },
 };
