@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { deleteImage } from "@/services/storage";
 
 export interface NewsArticle {
   id: string;
@@ -13,10 +14,7 @@ export interface NewsArticle {
   updated_at: string;
 }
 
-/**
- * ADMIN
- * Get every article
- */
+/** ADMIN: get every article. */
 export async function getNews() {
   const { data, error } = await supabase
     .from("news")
@@ -24,14 +22,10 @@ export async function getNews() {
     .order("created_at", { ascending: false });
 
   if (error) throw error;
-
   return data as NewsArticle[];
 }
 
-/**
- * PUBLIC
- * Get only published articles
- */
+/** PUBLIC: get only published articles. */
 export async function getPublishedNews() {
   const { data, error } = await supabase
     .from("news")
@@ -40,14 +34,10 @@ export async function getPublishedNews() {
     .order("published_at", { ascending: false });
 
   if (error) throw error;
-
   return data as NewsArticle[];
 }
 
-/**
- * PUBLIC
- * Get article by slug
- */
+/** PUBLIC: get one article by slug. */
 export async function getNewsBySlug(slug: string) {
   const { data, error } = await supabase
     .from("news")
@@ -56,13 +46,10 @@ export async function getNewsBySlug(slug: string) {
     .single();
 
   if (error) throw error;
-
   return data as NewsArticle;
 }
-/**
- * ADMIN
- * Get article by id
- */
+
+/** ADMIN: get one article by id. */
 export async function getNewsById(id: string) {
   const { data, error } = await supabase
     .from("news")
@@ -71,19 +58,12 @@ export async function getNewsById(id: string) {
     .single();
 
   if (error) throw error;
-
   return data as NewsArticle;
 }
 
-/**
- * ADMIN
- * Create article
- */
+/** ADMIN: create an article. */
 export async function createNews(
-  article: Omit<
-    NewsArticle,
-    "id" | "created_at" | "updated_at"
-  >
+  article: Omit<NewsArticle, "id" | "created_at" | "updated_at">
 ) {
   const { data, error } = await supabase
     .from("news")
@@ -92,14 +72,10 @@ export async function createNews(
     .single();
 
   if (error) throw error;
-
-  return data;
+  return data as NewsArticle;
 }
 
-/**
- * ADMIN
- * Update article
- */
+/** ADMIN: update an article. */
 export async function updateNews(
   id: string,
   article: Partial<NewsArticle>
@@ -112,19 +88,32 @@ export async function updateNews(
     .single();
 
   if (error) throw error;
-
-  return data;
+  return data as NewsArticle;
 }
 
 /**
- * ADMIN
- * Delete article
+ * ADMIN: remove the database row, then clean up its thumbnail.
+ * Database integrity is prioritised: a transient Storage error must never leave
+ * a live article pointing at a file that was already deleted.
  */
 export async function deleteNews(id: string) {
+  const article = await getNewsById(id);
+
   const { error } = await supabase
     .from("news")
     .delete()
     .eq("id", id);
 
   if (error) throw error;
+
+  if (article.thumbnail) {
+    try {
+      await deleteImage(article.thumbnail);
+    } catch (cleanupError) {
+      console.error(
+        "Article deleted, but its thumbnail could not be removed:",
+        cleanupError
+      );
+    }
+  }
 }

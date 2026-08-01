@@ -1,73 +1,52 @@
 import { useEffect, useMemo, useState } from "react";
 
 import {
-  getGallery,
   createGalleryImage,
   deleteGalleryImage,
+  getGallery,
   type GalleryImage,
 } from "@/services/gallery";
+import { deleteImage, uploadImage } from "@/services/storage";
 
-import { uploadImage } from "@/services/storage";
-
-const categories = [
-  "Team",
-  "Training",
-  "Matches",
-  "Events",
-] as const;
-
+const categories = ["Team", "Training", "Matches", "Events"] as const;
 type Category = (typeof categories)[number];
 
 export default function GalleryManager() {
-  const [images, setImages] =
-    useState<GalleryImage[]>([]);
-
-  const [loading, setLoading] =
-    useState(true);
-
-  const [showUpload, setShowUpload] =
-    useState(false);
-
-  const [deleteMode, setDeleteMode] =
-    useState(false);
-
-  const [selectedImages, setSelectedImages] =
-    useState<string[]>([]);
-
-  const [title, setTitle] =
-    useState("");
-
-  const [category, setCategory] =
-    useState<Category>("Team");
-
-  const [preview, setPreview] =
-    useState("");
-
-  const [file, setFile] =
-    useState<File | null>(null);
-
-  const [uploading, setUploading] =
-    useState(false);
-
-  const [deleting, setDeleting] =
-    useState(false);
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showUpload, setShowUpload] = useState(false);
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState<Category>("Team");
+  const [preview, setPreview] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    loadGallery();
+    void loadGallery();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
   async function loadGallery() {
     try {
       const data = await getGallery();
       setImages(data);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error("Failed to load gallery:", error);
     } finally {
       setLoading(false);
     }
   }
 
   function resetUploadForm() {
+    if (preview) URL.revokeObjectURL(preview);
     setTitle("");
     setCategory("Team");
     setPreview("");
@@ -85,24 +64,31 @@ export default function GalleryManager() {
       return;
     }
 
+    let imageUrl = "";
+
     try {
       setUploading(true);
-
-      const imageUrl =
-        await uploadImage(file, "gallery");
+      imageUrl = await uploadImage(file, "gallery");
 
       await createGalleryImage({
-        title,
+        title: title.trim() || undefined,
         image_url: imageUrl,
         category,
       });
 
       await loadGallery();
-
       closeUpload();
+    } catch (error) {
+      console.error("Failed to upload gallery image:", error);
 
-    } catch (err) {
-      console.error(err);
+      if (imageUrl) {
+        try {
+          await deleteImage(imageUrl);
+        } catch (cleanupError) {
+          console.error("Failed to roll back uploaded image:", cleanupError);
+        }
+      }
+
       alert("Failed to upload image.");
     } finally {
       setUploading(false);
@@ -114,7 +100,7 @@ export default function GalleryManager() {
 
     setSelectedImages((current) =>
       current.includes(id)
-        ? current.filter((x) => x !== id)
+        ? current.filter((selectedId) => selectedId !== id)
         : [...current, id]
     );
   }
@@ -122,12 +108,7 @@ export default function GalleryManager() {
   async function handleDelete() {
     if (selectedImages.length === 0) return;
 
-    if (
-      !window.confirm(
-        `Delete ${selectedImages.length} photo(s)?`
-      )
-    )
-      return;
+    if (!window.confirm(`Delete ${selectedImages.length} photo(s)?`)) return;
 
     try {
       setDeleting(true);
@@ -137,69 +118,52 @@ export default function GalleryManager() {
       }
 
       await loadGallery();
-
       setSelectedImages([]);
       setDeleteMode(false);
-
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error("Failed to delete gallery images:", error);
+      alert("Failed to delete one or more photos.");
     } finally {
       setDeleting(false);
     }
   }
 
-  const groupedImages = useMemo(() => {
-    return categories.map((category) => ({
-      category,
-      images: images.filter(
-        (img) => img.category === category
-      ),
-    }));
-  }, [images]);
+  const groupedImages = useMemo(
+    () =>
+      categories.map((groupCategory) => ({
+        category: groupCategory,
+        images: images.filter((image) => image.category === groupCategory),
+      })),
+    [images]
+  );
 
   if (loading) {
-    return (
-      <div className="p-10 text-center">
-        Loading Gallery...
-      </div>
-    );
+    return <div className="p-10 text-center">Loading Gallery...</div>;
   }
 
   return (
     <>
       <div className="mx-auto max-w-7xl space-y-12">
-
         <div className="flex flex-wrap items-center justify-between gap-4">
-
           <div>
-
-            <h1 className="font-display text-4xl text-gradient-gold">
-              Gallery
-            </h1>
-
+            <h1 className="font-display text-4xl text-gradient-gold">Gallery</h1>
             <p className="mt-2 text-muted-foreground">
               Upload and organise club media.
             </p>
-
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-
             {!deleteMode ? (
               <>
                 <button
-                  onClick={() =>
-                    setShowUpload(true)
-                  }
+                  onClick={() => setShowUpload(true)}
                   className="rounded-xl bg-brand-primary px-6 py-3 font-semibold text-black transition hover:opacity-90"
                 >
                   + Add Photo
                 </button>
 
                 <button
-                  onClick={() =>
-                    setDeleteMode(true)
-                  }
+                  onClick={() => setDeleteMode(true)}
                   className="rounded-xl border border-red-500 px-6 py-3 font-semibold text-red-400 transition hover:bg-red-500/10"
                 >
                   Delete Photos
@@ -221,116 +185,80 @@ export default function GalleryManager() {
                   {selectedImages.length === 0
                     ? "Select photos to delete"
                     : `${selectedImages.length} photo${
-                        selectedImages.length > 1
-                          ? "s"
-                          : ""
+                        selectedImages.length > 1 ? "s" : ""
                       } selected`}
                 </p>
 
                 <button
                   onClick={handleDelete}
-                  disabled={
-                    deleting ||
-                    selectedImages.length === 0
-                  }
+                  disabled={deleting || selectedImages.length === 0}
                   className={`rounded-xl px-6 py-3 font-semibold transition ${
                     selectedImages.length === 0
                       ? "cursor-not-allowed bg-zinc-700 text-zinc-400"
                       : "bg-red-600 text-white hover:bg-red-700"
-                  } ${
-                    deleting
-                      ? "opacity-60"
-                      : ""
-                  }`}
+                  } ${deleting ? "opacity-60" : ""}`}
                 >
                   {deleting
                     ? "Deleting..."
                     : `Delete Selected${
-                        selectedImages.length
-                          ? ` (${selectedImages.length})`
-                          : ""
+                        selectedImages.length ? ` (${selectedImages.length})` : ""
                       }`}
                 </button>
-
               </>
             )}
-
           </div>
-
         </div>
 
-        {groupedImages.map(
-          ({ category, images }) => (
-            <section key={category}>
+        {groupedImages.map(({ category: groupCategory, images: groupImages }) => (
+          <section key={groupCategory}>
+            <h2 className="mb-5 border-b border-border pb-3 font-display text-2xl">
+              {groupCategory}
+            </h2>
 
-              <h2 className="mb-5 border-b border-border pb-3 font-display text-2xl">
-                {category}
-              </h2>
+            {groupImages.length === 0 ? (
+              <p className="text-muted-foreground">No images yet.</p>
+            ) : (
+              <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:grid-cols-5">
+                {groupImages.map((image) => {
+                  const selected = selectedImages.includes(image.id);
 
-              {images.length === 0 ? (
-                <p className="text-muted-foreground">
-                  No images yet.
-                </p>
-              ) : (
-                <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:grid-cols-5">
+                  return (
+                    <button
+                      type="button"
+                      key={image.id}
+                      onClick={() => toggleSelection(image.id)}
+                      className={`group relative overflow-hidden rounded-2xl border bg-card text-left transition-all duration-200 ${
+                        deleteMode ? "cursor-pointer" : "cursor-default"
+                      } ${
+                        selected
+                          ? "scale-[0.96] border-red-500 ring-2 ring-red-500"
+                          : "border-border hover:border-brand-primary"
+                      }`}
+                    >
+                      <img
+                        src={image.image_url}
+                        alt={image.title ?? image.category}
+                        className="aspect-square w-full object-cover transition duration-300 group-hover:scale-105"
+                      />
 
-                  {images.map((image) => {
+                      {image.title && (
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs">
+                          {image.title}
+                        </div>
+                      )}
 
-                    const selected =
-                      selectedImages.includes(
-                        image.id
-                      );
-
-                    return (
-                      <div
-                        key={image.id}
-                        onClick={() =>
-                          toggleSelection(image.id)
-                        }
-                        className={`group relative overflow-hidden rounded-2xl border bg-card transition-all duration-200 ${
-                          deleteMode
-                            ? "cursor-pointer"
-                            : ""
-                        } ${
-                          selected
-                            ? "scale-[0.96] border-red-500 ring-2 ring-red-500"
-                            : "border-border hover:border-brand-primary"
-                        }`}
-                      >
-
-                        <img
-                          src={image.image_url}
-                          alt={
-                            image.title ??
-                            image.category
-                          }
-                          className="aspect-square w-full object-cover transition duration-300 group-hover:scale-105"
-                        />
-
-                        {image.title && (
-                          <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-xs">
-                            {image.title}
-                          </div>
-                        )}
-
-                        {deleteMode && (
-                          <div className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-black/70 text-white">
-                            {selected ? "✓" : ""}
-                          </div>
-                        )}
-
-                      </div>
-                    );
-
-                  })}
-
-                </div>
-              )}
-
-            </section>
-          )
-        )}
-
+                      {deleteMode && (
+                        <div className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-black/70 text-white">
+                          {selected ? "✓" : ""}
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        ))}
       </div>
 
       {showUpload && (
@@ -338,36 +266,27 @@ export default function GalleryManager() {
           className="fixed inset-0 z-[9999] overflow-y-auto bg-black/75 backdrop-blur-sm"
           onClick={closeUpload}
         >
-
           <div className="flex min-h-full items-center justify-center p-6">
-
             <div
-              onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-xl rounded-3xl border border-border bg-card shadow-2xl max-h-[90vh] overflow-y-auto"
+              onClick={(event) => event.stopPropagation()}
+              className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl border border-border bg-card shadow-2xl"
             >
-
               <div className="p-8">
-
                 <h2 className="font-display text-3xl text-gradient-gold">
                   Upload Photo
                 </h2>
-
                 <p className="mt-2 text-sm text-muted-foreground">
                   Add a new image to the club gallery.
                 </p>
 
                 <div className="mt-8 space-y-6">
-
-                                      <div>
+                  <div>
                     <label className="mb-2 block text-sm font-semibold uppercase tracking-wide text-brand-primary">
                       Photo Title (optional)
                     </label>
-
                     <input
                       value={title}
-                      onChange={(e) =>
-                        setTitle(e.target.value)
-                      }
+                      onChange={(event) => setTitle(event.target.value)}
                       placeholder="Summer Training Session"
                       className="w-full rounded-xl border border-border bg-secondary px-4 py-3 outline-none transition focus:border-brand-primary"
                     />
@@ -377,25 +296,19 @@ export default function GalleryManager() {
                     <label className="mb-2 block text-sm font-semibold uppercase tracking-wide text-brand-primary">
                       Choose Photo
                     </label>
-
                     <label className="inline-flex cursor-pointer items-center rounded-xl border border-brand-primary bg-secondary px-5 py-3 transition hover:shadow-gold">
                       📷 Select Image
-
                       <input
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => {
-                          const selected =
-                            e.target.files?.[0];
+                        onChange={(event) => {
+                          const selectedFile = event.target.files?.[0];
+                          if (!selectedFile) return;
 
-                          if (!selected) return;
-
-                          setFile(selected);
-
-                          setPreview(
-                            URL.createObjectURL(selected)
-                          );
+                          if (preview) URL.revokeObjectURL(preview);
+                          setFile(selectedFile);
+                          setPreview(URL.createObjectURL(selectedFile));
                         }}
                       />
                     </label>
@@ -412,10 +325,9 @@ export default function GalleryManager() {
                       <label className="mb-3 block text-sm font-semibold uppercase tracking-wide text-brand-primary">
                         Preview
                       </label>
-
                       <img
                         src={preview}
-                        alt="Preview"
+                        alt="Selected upload preview"
                         className="mx-auto max-h-56 w-auto max-w-full rounded-2xl border border-border object-contain"
                       />
                     </div>
@@ -425,15 +337,12 @@ export default function GalleryManager() {
                     <label className="mb-3 block text-sm font-semibold uppercase tracking-wide text-brand-primary">
                       Category
                     </label>
-
                     <div className="flex flex-wrap gap-3">
                       {categories.map((item) => (
                         <button
                           key={item}
                           type="button"
-                          onClick={() =>
-                            setCategory(item)
-                          }
+                          onClick={() => setCategory(item)}
                           className={`rounded-full px-5 py-2 text-sm font-semibold transition-all duration-200 ${
                             category === item
                               ? "bg-brand-primary text-black shadow-gold"
@@ -445,11 +354,9 @@ export default function GalleryManager() {
                       ))}
                     </div>
                   </div>
-
                 </div>
 
                 <div className="sticky bottom-0 mt-8 flex justify-end gap-3 border-t border-border bg-card pt-6">
-
                   <button
                     type="button"
                     onClick={closeUpload}
@@ -457,29 +364,20 @@ export default function GalleryManager() {
                   >
                     Cancel
                   </button>
-
                   <button
                     type="button"
                     disabled={!file || uploading}
                     onClick={handleUpload}
                     className="rounded-xl bg-brand-primary px-7 py-3 font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {uploading
-                      ? "Uploading..."
-                      : "Upload Photo"}
+                    {uploading ? "Uploading..." : "Upload Photo"}
                   </button>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
       )}
-
     </>
   );
 }

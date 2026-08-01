@@ -18,12 +18,8 @@ export type FormSection = {
 
 export interface Form {
   id: string;
-  form_type: string | null;
+  form_type: string;
   name: string | null;
-  email: string | null;
-  phone: string | null;
-  message: string | null;
-  status: string | null;
   slug: string | null;
   active: boolean;
   placement: string;
@@ -61,20 +57,19 @@ export async function createForm(
   slug: string,
   description: string,
   placement: string,
-  sections: FormSection[]
-
+  sections: FormSection[],
 ) {
   const { data, error } = await supabase
     .from("forms")
-   .insert({
-  form_type: "custom",
-  name,
-  slug,
-  description,
-  placement,
-  sections,
-  active: false,
-})
+    .insert({
+      form_type: "custom",
+      name,
+      slug,
+      description,
+      placement,
+      sections,
+      active: false,
+    })
     .select()
     .single();
 
@@ -83,12 +78,9 @@ export async function createForm(
   return data as Form;
 }
 
-
 export async function updateForm(
   id: string,
-  updates: Partial<
-    Omit<Form, "id" | "created_at" | "updated_at">
-  >
+  updates: Partial<Omit<Form, "id" | "created_at" | "updated_at">>,
 ) {
   const { data, error } = await supabase
     .from("forms")
@@ -133,7 +125,7 @@ export async function deleteForm(id: string) {
 export type FormSubmission = {
   id: string;
   form_id: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   submitted_at: string;
 };
 
@@ -142,12 +134,9 @@ export async function getSubmissions(formId: string) {
     .from("form_submissions")
     .select("*")
     .eq("form_id", formId)
-    .order("submitted_at", {
-      ascending: false,
-    });
+    .order("submitted_at", { ascending: false });
 
   if (error) throw error;
 
   return data as FormSubmission[];
 }
-
