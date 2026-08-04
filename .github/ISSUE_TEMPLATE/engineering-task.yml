@@ -1,0 +1,42 @@
+name: Engineering task
+description: Create a verified Sunesa implementation, defect, maintenance, privacy, or release task
+title: ""
+labels: []
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or objective
+      description: Describe the affected visitor, administrator, submission, content, or system outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and current state
+      description: Include route, role, content/form state, resource, reproduction, commit, deployment, screenshot, or log.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and exclusions
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Dependencies, privacy, cross-project, media/data risk, and rollback
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Required verification
+      description: List roles, lifecycle states, migrations, RLS/storage, form/submission, routes, devices, and deployment evidence.
+    validations:
+      required: true
