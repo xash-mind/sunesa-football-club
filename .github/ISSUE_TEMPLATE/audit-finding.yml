@@ -1,0 +1,46 @@
+name: Audit finding
+description: Record a confirmed Sunesa functional, UX, accessibility, security, privacy, data, or release finding
+title: ""
+labels: []
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Public functionality
+        - Admin / content lifecycle
+        - Forms / submissions
+        - UI / UX
+        - Accessibility
+        - Responsiveness
+        - Security / privacy
+        - Data / media ownership
+        - Cross-project isolation
+        - Performance
+        - Release / deployment
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and evidence
+      description: Include route, role, state, resource, device, commit, expected result, actual result, and evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: User and system impact
+    validations:
+      required: true
+  - type: textarea
+    id: direction
+    attributes:
+      label: Likely cause and fix direction
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria and regression test
+    validations:
+      required: true
