@@ -1148,34 +1148,36 @@ const applicationsOpen = trialForms.length > 0;
       "Outstanding players progress into competitive Sunesa FC squads."}
   </p>
 
-              <div className="glass-card mt-8 rounded-2xl p-5">
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary">
-                  Trial Status
+              {applicationsOpen && (
+                <div className="glass-card mt-8 rounded-2xl p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary">
+                    Trial Status
+                  </div>
+
+                  <div className="mt-3 flex items-center gap-3">
+
+                    <span
+                      className={`h-3 w-3 rounded-full ${
+                        applicationsOpen
+                          ? "bg-green-500"
+                          : "bg-red-500"
+                      }`}
+                    />
+
+                    <span className="font-medium text-foreground">
+                      {applicationsOpen
+                        ? "Applications are currently OPEN"
+                        : "Applications are currently CLOSED"}
+                    </span>
+
+                  </div>
+
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    Trial availability will be managed from the future admin
+                    dashboard.
+                  </p>
                 </div>
-
-                <div className="mt-3 flex items-center gap-3">
-
-                  <span
-                    className={`h-3 w-3 rounded-full ${
-                      applicationsOpen
-                        ? "bg-green-500"
-                        : "bg-red-500"
-                    }`}
-                  />
-
-                  <span className="font-medium text-foreground">
-                    {applicationsOpen
-                      ? "Applications are currently OPEN"
-                      : "Applications are currently CLOSED"}
-                  </span>
-
-                </div>
-
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Trial availability will be managed from the future admin
-                  dashboard.
-                </p>
-              </div>
+              )}
 
             </div>
 
@@ -1189,19 +1191,9 @@ const applicationsOpen = trialForms.length > 0;
     onBack={() => setSelectedForm(null)}
   />
 ) : loadingForms ? (
-  <div className="glass-card rounded-3xl p-8 text-center">
-    <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-brand-primary border-t-transparent" />
-
-    <p className="mt-4 text-sm text-muted-foreground">
-      Loading available trials...
-    </p>
-  </div>
+  null
 ) : trialForms.length === 0 ? (
-  <div className="glass-card rounded-3xl p-8 text-center">
-    <p className="text-sm text-muted-foreground">
-      Applications are currently closed.
-    </p>
-  </div>
+  null
 ) : (
   <div className="space-y-4">
     {trialForms.map((form) => (
@@ -1804,11 +1796,11 @@ if (loading || showLoader) {
 
 <AboutSection about={about} />
 
-<GallerySection gallery={gallery} />
+<TrialsSection trials={trials} />
 
 <NewsSection news={news} />
 
-<TrialsSection trials={trials} />
+<GallerySection gallery={gallery} />
 
 <ContactSection contact={contact} />
 
